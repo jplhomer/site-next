@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { getArchivePosts } from "@/lib/archive";
+import { getArchivePosts } from "@/lib/archive-posts";
 
 export async function getStaticProps({ params }) {
   const res = await fetch(
