@@ -20,12 +20,23 @@ export async function getStaticProps() {
 
 export default function Home({ archivePosts, rafterPosts, barkpassPosts }) {
   return (
-    <div className="container mx-auto p-4">
+    <div className="mx-auto p-4 mt-8 max-w-3xl">
       <Head>
         <title>Josh Larson</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="text-4xl font-black mb-4">Josh Larson</h1>
+      <div className="mb-8">
+        <h1 className="text-4xl font-black mb-4">
+          I'm Josh Larson. Nice to meet you!
+        </h1>
+        <p className="text-lg font-medium leading-relaxed">
+          I'm a dad, a software engineer, a husband, and a creator. I work at{" "}
+          <b>Vox Media</b>, and I live near <b>Des Moines, Iowa</b>. I'm
+          passionate about <b>solving hard problems</b> and creating great
+          experiences for other developers and end-users. Occasionally, I'll
+          build things and write about them. This is one of those occasions.
+        </p>
+      </div>
       <h2>Archive:</h2>
       <ul>
         {archivePosts.map((post) => {
