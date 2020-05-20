@@ -5,7 +5,20 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint --ext .js",
+    "prettier": "prettier --write \"**/*.{html,js,json,md,mdx,yml}\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{html,js,json,md,mdx,yml}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.1",
@@ -18,5 +31,14 @@
     "react-dom": "16.13.1",
     "tailwindcss": "^1.4.6",
     "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.0.0",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.4",
+    "prettier": "^2.0.5"
   }
 }

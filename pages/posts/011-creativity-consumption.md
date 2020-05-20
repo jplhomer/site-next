@@ -1,5 +1,5 @@
 ---
-title: "Creativity vs. Consumption"
+title: 'Creativity vs. Consumption'
 date: 2020-04-07
 ---
 
@@ -49,13 +49,13 @@ These things are so much easier to do while feeding, caring for or hanging out w
 
 Gosh, I **never read books**. I'll sometimes read articles on my phone during transition periods, but real paper books? No way.
 
-I'm pretty bummed about this. I have friends who read dozens and dozens of books *every year*. Last year, I maybe read three books *total*.
+I'm pretty bummed about this. I have friends who read dozens and dozens of books _every year_. Last year, I maybe read three books _total_.
 
 But I've found books are much more difficult to read with a baby in tow. It's tricker to hold a book while feeding a baby a bottle than it is to simply click "Play" on an Apple TV remote. Plus, it's possible to listen to a TV or a movie without actually looking at it.
 
 I guess I could go down the route of audiobooks, but I have this literal stack of paper books on my nightstand waiting to be read that I can't seem to crack into.
 
-Consuming isn't all bad, though. I do enjoy watching interesting things. I could tell you all you want to know about the Baltimore drug trade after watching Season 1 of *The Wire*, for example. Yes, I am now an expert.
+Consuming isn't all bad, though. I do enjoy watching interesting things. I could tell you all you want to know about the Baltimore drug trade after watching Season 1 of _The Wire_, for example. Yes, I am now an expert.
 
 ## Finding a balance
 
@@ -66,4 +66,3 @@ I'm going to try harder to focus and carve out time to be creative during naptim
 And sometimes, I'll take a nap or take a shower instead. Sue me.
 
 Anyway, my son is about to wake up. I knocked out this entire post during his morning nap 🎉 Please clap.
-

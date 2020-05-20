@@ -1,5 +1,5 @@
 ---
-title: "Day 3: Inspirational tech people I follow on Twitter"
+title: 'Day 3: Inspirational tech people I follow on Twitter'
 date: 2019-01-09
 ---
 
@@ -9,7 +9,7 @@ Honestly, it was a much-needed break from the toxicity running rampant through t
 
 But after dipping out of my own Twitter feed for about a month, I really started to miss the "tech Twitter" I'd come to know and love. The kind of stuff that got me excited about building something new stuff that would make me inspire to keep building instead of tearing others down.
 
->But after dipping out of my own Twitter feed for about a month, I really started to miss the "tech Twitter" I'd come to know and love.
+> But after dipping out of my own Twitter feed for about a month, I really started to miss the "tech Twitter" I'd come to know and love.
 
 I began finding folks I really appreciated and loading up their Twitter profiles directly. Talk about curated! It made me feel much more in control, being able to say "Hey, I wonder what cool thing @user has tweeted recently" instead of "OK Twitter give me all your shit."
 
@@ -33,7 +33,7 @@ It's super cool to watch Zeit as a company push the limits with things like PKG,
 
 https://twitter.com/sehurlburt/status/1081242710365810690
 
-I first heard Stephanie when she was [interviewed for the the Indie Hackers podcast](https://www.indiehackers.com/podcast/044-stephanie-hurlburt-of-binomial). She co-founded a successful image compression company called Binomial. Essentially, they sell compression software for $$$ to big video game companies.
+I first heard Stephanie when she was [interviewed for the the Indie Hackers podcast](https://www.indiehackers.com/podcast/044-stephanie-hurlburt-of-binomial). She co-founded a successful image compression company called Binomial. Essentially, they sell compression software for \$\$\$ to big video game companies.
 
 On Twitter, her presence is positive and warm. She regularly tweets helpful information to folks in tech, especially geared toward underrepresented minority groups. She is also open about mental health, relationships and networking; and has shared that she suffers from PTSD from a traumatic experience in her past.
 

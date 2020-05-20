@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 const mdx = (pluginOptions = {}) => (nextConfig = {}) => {
   const extension = pluginOptions.extension || /\.mdx$/;
@@ -10,14 +10,14 @@ const mdx = (pluginOptions = {}) => (nextConfig = {}) => {
         use: [
           options.defaultLoaders.babel,
           {
-            loader: "@mdx-js/loader",
+            loader: '@mdx-js/loader',
             options: pluginOptions.options,
           },
-          path.join(__dirname, "./frontmatter-loader"),
+          path.join(__dirname, './frontmatter-loader'),
         ],
       });
 
-      if (typeof nextConfig.webpack === "function") {
+      if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(config, options);
       }
 
@@ -33,5 +33,5 @@ const withMDX = mdx({
 });
 
 module.exports = withMDX({
-  pageExtensions: ["js", "jsx", "mdx", "md"],
+  pageExtensions: ['js', 'jsx', 'mdx', 'md'],
 });

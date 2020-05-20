@@ -1,5 +1,5 @@
 ---
-title: "Day 1: My 30 Day Creativity Challenge"
+title: 'Day 1: My 30 Day Creativity Challenge'
 date: 2019-01-07
 ---
 
@@ -23,6 +23,6 @@ Keep coming back each day, if you give a shit. Or maybe every few days. It will 
 
 ---
 
-This is a special blog, but you can check out my [personal website](https://jplhomer.org) for years and years of embarrassing posts. 
+This is a special blog, but you can check out my [personal website](https://jplhomer.org) for years and years of embarrassing posts.
 
 This site was built with [Gatsby](https://gatsbyjs.com) and was inspired by [Dan Abramov's React blog](https://overreacted.io/). It's [open source](https://github.com/jplhomer/creative)!

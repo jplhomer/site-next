@@ -1,4 +1,4 @@
-const frontmatter = require("front-matter");
+const frontmatter = require('front-matter');
 
 module.exports = async function (src) {
   const callback = this.async();

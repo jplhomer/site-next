@@ -1,5 +1,5 @@
 ---
-title: "Day 7: You should see Eighth Grade, a movie by Bo Burnham"
+title: 'Day 7: You should see Eighth Grade, a movie by Bo Burnham'
 date: 2019-01-21
 image: https://pmcvariety.files.wordpress.com/2018/01/eighth-grade_edited.jpg
 ---

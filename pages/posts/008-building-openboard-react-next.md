@@ -1,5 +1,5 @@
 ---
-title: "Day 8: Building a CrossFit Stats app with React and Next.js"
+title: 'Day 8: Building a CrossFit Stats app with React and Next.js'
 date: 2019-01-29
 image: https://creative.jplhomer.org/static/5cdf29cffe9995ad4a4f67b8ee037cbb/fa2eb/openboard.png
 ---

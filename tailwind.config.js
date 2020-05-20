@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   purge: ['./components/**/*.js', './pages/**/*.js'],
@@ -11,4 +11,4 @@ module.exports = {
   },
   variants: {},
   plugins: [require('@tailwindcss/ui')],
-}
+};

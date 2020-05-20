@@ -1,5 +1,5 @@
 ---
-title: "Day 5: Adam"
+title: 'Day 5: Adam'
 date: 2019-01-11
 ---
 

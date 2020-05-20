@@ -1,5 +1,5 @@
 ---
-title: "Day 9: My Dream Side Project"
+title: 'Day 9: My Dream Side Project'
 date: 2019-02-11
 image: https://files-ew26yfdvy.now.sh/carbon.png
 ---

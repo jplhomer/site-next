@@ -1,5 +1,5 @@
 ---
-title: "Day 4: Building a Gatsby plugin to automatically embed tweets"
+title: 'Day 4: Building a Gatsby plugin to automatically embed tweets'
 date: 2019-01-10
 ---
 
@@ -28,7 +28,7 @@ module.exports = async ({ markdownAST }) => {
 };
 
 function findPossibleTweets(markdownAST) {
-  return select.selectAll("paragraph link:only-child", markdownAST);
+  return select.selectAll('paragraph link:only-child', markdownAST);
 }
 
 async function replaceLinkWithTweet(node) {
@@ -43,7 +43,7 @@ async function replaceLinkWithTweet(node) {
     const response = await fetch(TWITTER_ENDPOINT + `?format=json&url=${node.url}`);
     const { html } = await response.json();
 
-    node.type = "html";
+    node.type = 'html';
     node.value = html;
     delete node.children;
   } catch (e) {
@@ -62,11 +62,7 @@ This is where the `gatsby-ssr.js` file comes in:
 
 ```js
 const createScriptTag = (scriptSrc) => {
-  return React.createElement(
-    "script",
-    { src: scriptSrc, key: `gatsby-plugin-oembed-twitter` },
-    null
-  );
+  return React.createElement('script', { src: scriptSrc, key: `gatsby-plugin-oembed-twitter` }, null);
 };
 
 exports.onRenderBody = ({ setPostBodyComponents }) => {
@@ -81,12 +77,8 @@ Additionally, we need to add a hook inside `gatsby-browser.js` to tell the tweet
 
 ```js
 const loadTwitter = () => {
-  if (
-    typeof twttr !== `undefined` &&
-    twttr.widgets &&
-    typeof twttr.widgets.load === `function`
-  ) {
-    twttr.widgets.load(document.getElementById("___gatsby"));
+  if (typeof twttr !== `undefined` && twttr.widgets && typeof twttr.widgets.load === `function`) {
+    twttr.widgets.load(document.getElementById('___gatsby'));
   }
 };
 
