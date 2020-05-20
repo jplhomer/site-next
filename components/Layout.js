@@ -7,8 +7,21 @@ export default function Layout({ children }) {
         <Link href="/">
           <a className="font-bold text-lg">Josh Larson</a>
         </Link>
+
+        <nav>
+          <NavItem href="/posts">Posts</NavItem>
+          <NavItem href="/archives">Archives</NavItem>
+        </nav>
       </header>
       <main>{children}</main>
     </div>
+  );
+}
+
+function NavItem({ href, children }) {
+  return (
+    <Link href={href}>
+      <a className="p-2 hover:bg-gray-200 ml-4">{children}</a>
+    </Link>
   );
 }
