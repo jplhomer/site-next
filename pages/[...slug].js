@@ -11,7 +11,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const posts = await getArchivePosts();
+  const { posts } = await getArchivePosts();
   const paths = posts.map((post) => ({
     params: {
       slug: post.nextSlug,

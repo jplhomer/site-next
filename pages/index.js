@@ -8,7 +8,7 @@ import { getPosts } from '@/lib/posts';
 
 export async function getStaticProps() {
   const [archivePosts, rafterPosts, barkpassPosts, posts] = await Promise.all([
-    getArchivePosts(),
+    getArchivePosts(5),
     getRafterPosts(),
     getBarkpassPosts(),
     getPosts(),
@@ -16,7 +16,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      archivePosts: archivePosts.slice(0, 5),
+      archivePosts: archivePosts.posts,
       rafterPosts,
       barkpassPosts,
       posts: posts.slice(0, 5),
@@ -62,7 +62,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
         </Link>
       </div>
       <div className="grid gap-4 lg:grid-cols-3 mb-8 mx-auto max-w-6xl p-4">
-        <PostList title="Inside Rafter">
+        <PostList title="Inside Rafter" link="https://blog.rafter.app">
           <ul>
             {rafterPosts.map((post) => {
               return (
@@ -78,7 +78,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
             })}
           </ul>
         </PostList>
-        <PostList title="Building Barkpass">
+        <PostList title="Building Barkpass" link="https://building.barkpass.com">
           <ul>
             {barkpassPosts.map((post) => {
               return (
@@ -94,7 +94,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
             })}
           </ul>
         </PostList>
-        <PostList title="Archive">
+        <PostList title="Archive" link="/archives">
           <ul>
             {archivePosts.map((post) => {
               return (
@@ -152,10 +152,24 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
   );
 }
 
-function PostList({ title, children }) {
+function PostList({ title, children, link }) {
+  const internalLink = link.startsWith('/');
+
+  function getLink() {
+    if (internalLink) {
+      return (
+        <Link href={link}>
+          <a>{title}</a>
+        </Link>
+      );
+    }
+
+    return <a href={link}>{title}</a>;
+  }
+
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-2">📝 {title}</h2>
+      <h2 className="text-2xl font-bold mb-2">📝 {getLink()}</h2>
       {children}
     </div>
   );
