@@ -64,7 +64,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
             {rafterPosts.map((post) => {
               return (
                 <li key={post.title}>
-                  <a href={post.link}>{post.title}</a>
+                  <a href={post.url}>{post.title}</a>
                 </li>
               );
             })}
@@ -87,7 +87,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
               return (
                 <li key={post.id}>
                   <Link href="/[...slug]" as={`/${post.nextSlug.join('/')}`}>
-                    <a>{post.title.rendered}</a>
+                    <a>{post.title}</a>
                   </Link>
                 </li>
               );
