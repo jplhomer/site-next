@@ -41,7 +41,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
             those occasions.
           </p>
         </div>
-        <ul>
+        <ul className="mb-4">
           {posts.map((post) => {
             return (
               <li className="mb-2" key={post.path}>
@@ -57,6 +57,9 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
             );
           })}
         </ul>
+        <Link href="/posts">
+          <a className="text-sm text-gray-600 font-medium ">All Posts</a>
+        </Link>
       </div>
       <div className="grid gap-4 lg:grid-cols-3 mb-8 mx-auto max-w-6xl p-4">
         <PostList title="Inside Rafter">
