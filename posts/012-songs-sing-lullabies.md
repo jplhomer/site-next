@@ -5,7 +5,7 @@ date: 2020-05-14
 
 Barrett is four months old. Here is my entire repertoire of lullaby songs to which he has the _absolute pleasure_ of listening before he slips off into a peaceful slumber.
 
-Note: the set list varies from night to night, and I can't guarantee I know all the words to the songs. But he's paying me \$0 for this performance, so I don't care.
+Note: the set list varies from night to night, and I can't guarantee I know all the words to the songs. But he's paying me $0 for this performance, so I don't care.
 
 1. "Homeward Bound" - Simon & Garfunkel
 1. "Hannah Hunt" - Vampire Weekend
