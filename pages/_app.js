@@ -2,6 +2,7 @@ import "@/css/tailwind.css";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import PostLayout from "@/components/PostLayout";
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -11,9 +12,11 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ConditionalWrapper>
-        <Component {...pageProps} />
-      </ConditionalWrapper>
+      <Layout>
+        <ConditionalWrapper>
+          <Component {...pageProps} />
+        </ConditionalWrapper>
+      </Layout>
     </>
   );
 }

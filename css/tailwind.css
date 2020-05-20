@@ -15,11 +15,14 @@ html {
   & h2 {
     @apply text-lg font-semibold leading-7 text-gray-900;
   }
+  & ol {
+    @apply list-decimal ml-8;
+  }
   & ul li {
     @apply relative pl-5;
   }
   & ul li::before {
-    content: '';
+    content: "";
     @apply absolute left-0.5 top-2.5 block h-1.5 w-1.5 rounded-full bg-gray-300;
   }
   & a {
