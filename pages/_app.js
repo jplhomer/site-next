@@ -1,7 +1,5 @@
 import '@/css/tailwind.css';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import PostLayout from '@/components/PostLayout';
 import Layout from '@/components/Layout';
 
 export default function App({ Component, pageProps }) {
@@ -13,21 +11,8 @@ export default function App({ Component, pageProps }) {
       </Head>
 
       <Layout>
-        <ConditionalWrapper>
-          <Component {...pageProps} />
-        </ConditionalWrapper>
+        <Component {...pageProps} />
       </Layout>
     </>
   );
-}
-
-function ConditionalWrapper({ children }) {
-  const router = useRouter();
-
-  if (/^\/posts\/\w+/.test(router.pathname)) {
-    // TODO: Replace with real blog layout
-    return <PostLayout>{children}</PostLayout>;
-  }
-
-  return children;
 }

@@ -32,6 +32,4 @@ const withMDX = mdx({
   rehypePlugins: [],
 });
 
-module.exports = withMDX({
-  pageExtensions: ['js', 'jsx', 'mdx', 'md'],
-});
+module.exports = withMDX();
