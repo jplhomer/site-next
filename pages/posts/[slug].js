@@ -1,5 +1,6 @@
 import { getPosts, getPost } from '@/lib/posts';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -34,6 +35,9 @@ export default function Post({ post, slug }) {
 
   return (
     <div className="max-w-3xl p-4 mx-auto prose">
+      <Head>
+        <title>{post.title}</title>
+      </Head>
       <h1 className="mb-8">{post.title}</h1>
       <div className="prose">
         <Article />
