@@ -14,6 +14,29 @@ export default function Layout({ children }) {
         </nav>
       </header>
       <main>{children}</main>
+      <footer className="mt-12 py-8 px-4 max-w-4xl mx-auto text-center">
+        <img
+          className="rounded-full mb-4 w-20 h-20 mx-auto"
+          src="https://unavatar.now.sh/jplhomer"
+          alt="A photo of Josh"
+        />
+        <div className="mb-4">
+          <Link href="/">
+            <a className="font-bold text-lg">Josh Larson</a>
+          </Link>
+        </div>
+        <div>
+          <a className="mx-2" href="https://twitter.com/jplhomer">
+            Twitter
+          </a>
+          <a className="mx-2" href="https://linkedin.com/in/jplhomer">
+            LinkedIn
+          </a>
+          <a className="mx-2" href="https://instagram.com/jplhomer">
+            Instagram
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

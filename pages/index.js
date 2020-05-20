@@ -147,7 +147,10 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           numquam in!
         </Project>
       </div>
-      GLANCES - Videos with Barrett - Good pics I want to share - Livestreams - Other quirky things
+      <div className="max-w-3xl mx-auto mb-8 p-4">
+        <h2 className="font-bold text-2xl mb-4">Glances</h2>
+        <p>Videos with Barrett - Good pics I want to share - Livestreams - Other quirky things</p>
+      </div>
     </div>
   );
 }
