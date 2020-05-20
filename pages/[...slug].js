@@ -34,8 +34,10 @@ export default function ArchivePost({ post }) {
       <Head>
         <title>{post.title.rendered}</title>
       </Head>
-      <h1>{post.title.rendered}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+      <div className="max-w-3xl p-4 mx-auto prose">
+        <h1 className="mb-8">{post.title.rendered}</h1>
+        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+      </div>
     </div>
   );
 }
