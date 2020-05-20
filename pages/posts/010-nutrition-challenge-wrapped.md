@@ -9,7 +9,7 @@ The [nutrition challenge that kicked this whole blog off](/002-what-nutrition-ho
 
 **I lost 14 pounds!** And 5% body fat. Not bad, y'all.
 
-![InBody Metrics](./in_body.jpg)
+![InBody Metrics](/blog/in_body.jpg)
 
 I feel good. I would like to lose a total of 30lbs and get below 200lbs for the first time ever.
 

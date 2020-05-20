@@ -4,7 +4,7 @@ date: 2019-01-20
 image: https://creative-8qtd3ypxt.now.sh/static/48bd22b1bd801197cb3ed835383edf95/a8a50/overlook_1.jpg
 ---
 
-![The main Fortnite loading screen](./main_screen.jpg)
+![The main Fortnite loading screen](/blog/fortnite/main_screen.jpg)
 
 Y'all, I'm not a gamer.
 
@@ -34,31 +34,31 @@ If you're not Fortnite-saavy, I want to give you a little rundown of how it work
 
 Once you've joined a match, you will be sent to a Lobby with up to 99 other people. Everyone waits here until all players are synced up and ready to play. While they're waiting, some people like to dance! Other people like to hit or shoot eachother (though the damange doesn't actually hurt or kill you).
 
-![Dancing in the lobby](./lobby.jpg)
+![Dancing in the lobby](/blog/fortnite/lobby.jpg)
 
 The lobby is literally a small island located geographically next to the main Fortnite island. You'll get a 10 second countdown before the bus leaves.
 
-![On a bus](./bus.jpg)
+![On a bus](/blog/fortnite/bus.jpg)
 
 So you're on a bus now! Cool. It is a flying bus. The bus in this photo is floated by a Santa balloon because Christmas, but it's usually just a blue balloon.
 
-![Map](./map.jpg)
+![Map](/blog/fortnite/map.jpg)
 
 The bus is moving across the island in a straight line, but the starting and ending points are random each match.
 
 This is the part where you jump! Sweet.
 
-![Tilted Towers](./tilted.jpg)
+![Tilted Towers](/blog/fortnite/tilted.jpg)
 
 Finding your landing spot in Fortnite is a pretty important step. Places like cities — shown above is the city called **Tilted Towers** — have a lot of "loot," but they also attract a lot of other players. Which, for me, means death.
 
-![Fatal Fields](./fatal.jpg)
+![Fatal Fields](/blog/fortnite/fatal.jpg)
 
 _This spot, to the left, is called **Fatal Fields**. It's like a nice little farmstead, except I die a lot there._
 
 So what is loot? Loot means weapons, healing, ammo and mobility items. You find loot laying on the ground or in golden, sparkling chests.
 
-![Looting and drinking a shield potion](./looting.jpg)
+![Looting and drinking a shield potion](/blog/fortnite/looting.jpg)
 
 _This is me, having just opened a chest, drinking a shield potion._
 
@@ -66,7 +66,7 @@ Another thing you need to do once you've landed is called **farming**. This does
 
 A cool thing in Fortnite is that _almost everything_ can be destructed. Doors, walls, cars, poles, ceilings, floors, trees, rocks. Everything.
 
-![Farming the side of a building](./farming.jpg)
+![Farming the side of a building](/blog/fortnite/farming.jpg)
 
 _This is me, farming the side of a building for brick._
 
@@ -87,29 +87,29 @@ That's what I've found it more fun to play with method number two, and look for 
 
 But for the most part, I die. And **badly**.
 
-![About to die](./death_1.jpg)
+![About to die](/blog/fortnite/death_1.jpg)
 
 Above: I'm in a fight. Woo-woo! But I don't have any weapons, or enough materials to build another wall 🙀.
 
-![Dead](./death_2.jpg)
+![Dead](/blog/fortnite/death_2.jpg)
 
 So I died.
 
 Sometimes, I'm so amped to get in a fight that I hit the wrong button. For example, in the photo below, I've opened up the screen to pick a dance for my character to perform. But I'm in a fight, so my oponent is literally shooting me with no effort.
 
-![About to die](./death_3.jpg)
+![About to die](/blog/fortnite/death_3.jpg)
 
 When you die, all of the loot and materials you've collected spill out on the ground.
 
-![Have your way with me, Chark the Shark](./death_4.jpg)
+![Have your way with me, Chark the Shark](/blog/fortnite/death_4.jpg)
 
-![Dannycoolboy, you good](./death_5.jpg)
+![Dannycoolboy, you good](/blog/fortnite/death_5.jpg)
 
-![I have died again](./death_6.jpg)
+![I have died again](/blog/fortnite/death_6.jpg)
 
 Sometimes, I make it quite a ways into the game. The most people I've ever killed in a single match are three! And here's a photo of me dying right at the end of a game:
 
-![Almost won](./death_7.jpg)
+![Almost won](/blog/fortnite/death_7.jpg)
 
 ## How I like to play
 
@@ -121,31 +121,31 @@ One way to make the game _more fun_? Don't play to win.
 
 There is another aspect to Fortnite called **Challenges**, and it's how I like to play the game.
 
-![Weekly challenges](./weekly_challenges.jpg)
+![Weekly challenges](/blog/fortnite/weekly_challenges.jpg)
 
 Challenges are fun, and they're usually pretty easy to complete. Sometimes it's as easy as landing in a certain spot, or opening a certain number of chests. The harder challenges involve eliminating people with a certain weapon or in a certain location (remember, I suck at killing people).
 
-Completing challenges earn you rewards. If you have signed up for a Battle Pass, which is a season pass costing about $10, you will get extra weekly challenges which earn you even more rewards.
+Completing challenges earn you rewards. If you have signed up for a Battle Pass, which is a season pass costing about \$10, you will get extra weekly challenges which earn you even more rewards.
 
-![Battle pass](./battle_pass.jpg)
+![Battle pass](/blog/fortnite/battle_pass.jpg)
 
 Rewards can earn you more skins and characters you can play. In this photo, you can see I've just earned a li'l dog who rides in my backpack and cheers me on. It's the little things.
 
-![Skins](./skins.jpg)
+![Skins](/blog/fortnite/skins.jpg)
 
 I've only played for a short while, so I can choose between these three skins.
 
 One of the recent challenges I completed was a holiday-themed one: **Dance in front of nine different holiday trees**. These trees are scattered throughout the map:
 
-![Landing near a tree](./tree_landing_1.jpg)
+![Landing near a tree](/blog/fortnite/tree_landing_1.jpg)
 
 And it's a pretty easy challenge to complete, because all you have to do is dance in front of it:
 
-![Dancing in front of a tree](./tree_landing_2.jpg)
+![Dancing in front of a tree](/blog/fortnite/tree_landing_2.jpg)
 
 ## But do you need to pay?
 
-No. You can play Fortnite without paying. I only paid $10 for a Battle Pass because I'd just had my wisdom teeth out and was confined to the couch for a while.
+No. You can play Fortnite without paying. I only paid \$10 for a Battle Pass because I'd just had my wisdom teeth out and was confined to the couch for a while.
 
 But I have to admit: the challenges in the game are a fun way to play. And if I complete enough challenges, I will likely earn enough in-game currency to purchase the next season (and set challenges) for zero dollars. Pretty neat.
 
@@ -155,9 +155,8 @@ It's pretty cool that a colorful game has captivated my attention as an almost-3
 
 Check it out, if you want. Also add me as an Epic friend so we can play together: **jplhomer** is my username.
 
-![It's a cool game](./overlook_2.jpg)
+![It's a cool game](/blog/fortnite/overlook_2.jpg)
 
-![Super cool](./overlook_3.jpg)
+![Super cool](/blog/fortnite/overlook_3.jpg)
 
-![Beautiful](./overlook_1.jpg)
-
+![Beautiful](/blog/fortnite/overlook_1.jpg)

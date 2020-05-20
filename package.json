@@ -8,8 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mdx-js/loader": "^1.6.1",
     "@tailwindcss/ui": "^0.3.0",
     "autoprefixer": "^9.8.0",
+    "front-matter": "^3.2.1",
     "next": "9.4.1",
     "postcss-nesting": "^7.0.1",
     "react": "16.13.1",

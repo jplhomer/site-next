@@ -20,7 +20,7 @@ The first scene that really struck me — and made me laugh out loud — was whe
 
 The _popular girl_ and her major crush both wih "Best Eyes" — and as they walk to pick up their award, Kayla tells them, "Good job." But it is barely audible.
 
-![Good job](./good_job.jpg)
+![Good job](/blog/good_job.jpg)
 
 That was ME. It probably took _so much courage_ to speak up and try to give a compliment, and it's completely and utterly wasted because nobody can hear her.
 

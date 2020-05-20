@@ -10,7 +10,7 @@ Hundreds of thousands of people from around the world participate in the same se
 
 Each athlete's stats gets logged by a certain date. There is a global leaderboard of athletes competing in the games.
 
-![The leaderboard](./leaderboard.png)
+![The leaderboard](/blog/openboard/leaderboard.png)
 
 _In case you were wondering, I clock in at about 130,000th place — too far down to show in this screenshot._
 
@@ -28,7 +28,7 @@ The goal was **to combine an athlete's performance with details from the workout
 
 I'm calling it: [**Openboard**](https://openboard.now.sh).
 
-![Openboard](./openboard.png)
+![Openboard](/blog/openboard/openboard.png)
 
 And guess what: I streamed most of it live on the Internet!
 
@@ -78,7 +78,7 @@ I really dig the concept of [immutable deployments](https://zeit.co/docs/v2/depl
 
 To be honest, migrating to a dark theme was easier than I thought. I'm not sure if it's _actually a better design_, but I'll take it.
 
-![Openboard detail page](./openboard-detail.png)
+![Openboard detail page](/blog/openboard/openboard-detail.png)
 
 It was really fun building a year navigation component and integrating directly with [routing support in Next.js](https://nextjs.org/docs/#routing). Sadly, I ended up disabling this feature because — wouldn't you know it — I discovered **the CrossFit API results and structured inconsistently year-to-year**.
 
@@ -88,7 +88,7 @@ As I built this last part, I hit a few bumps in the road.
 
 Between Saturday and Sunday, [TypeScript support was broken](https://github.com/zeit/ncc/pull/233) due to a merge in a package used by the Now builder. I used TypeScript for my proxy server to fetch and return API requests.
 
-![Broken TypeScript](./broken-ts.png)
+![Broken TypeScript](/blog/openboard/broken-ts.png)
 
 But this wasn't a huge deal - I was able to lock to a previous version and get going again.
 

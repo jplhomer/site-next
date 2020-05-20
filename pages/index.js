@@ -3,22 +3,30 @@ import Link from "next/link";
 import { getArchivePosts } from "@/lib/archive-posts";
 import { getRafterPosts } from "@/lib/rafter-posts";
 import { getBarkpassPosts } from "@/lib/barkpass-posts";
+import { getPosts } from "@/lib/posts";
 
 export async function getStaticProps() {
   const archivePosts = await getArchivePosts();
   const rafterPosts = await getRafterPosts();
   const barkpassPosts = await getBarkpassPosts();
+  const posts = await getPosts();
 
   return {
     props: {
       archivePosts: archivePosts.slice(0, 4),
       rafterPosts,
       barkpassPosts,
+      posts,
     },
   };
 }
 
-export default function Home({ archivePosts, rafterPosts, barkpassPosts }) {
+export default function Home({
+  archivePosts,
+  rafterPosts,
+  barkpassPosts,
+  posts,
+}) {
   return (
     <div className="mx-auto p-4 mt-8 max-w-3xl">
       <Head>
@@ -37,6 +45,21 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts }) {
           build things and write about them. This is one of those occasions.
         </p>
       </div>
+      <h2>Posts:</h2>
+      <ul>
+        {posts.map((post) => {
+          return (
+            <li key={post.path}>
+              <Link
+                href="/posts/[slug]"
+                as={`/posts/${post.path.replace(/.mdx?/, "")}`}
+              >
+                <a>{post.title}</a>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
       <h2>Archive:</h2>
       <ul>
         {archivePosts.map((post) => {

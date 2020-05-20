@@ -72,7 +72,7 @@ With Kubernetes, one big constraint is that **everything must be an image**. Thi
 
 How does this work? Here's a diagram. I'll explain afterward:
 
-![PHP Deployment Dreams](./php_deployment_mock.png)
+![PHP Deployment Dreams](/blog/php_deployment_mock.png)
 
 The flow of a deployment goes from _left to right_, while the flow of a web visitor goes from _top to bottom_:
 
