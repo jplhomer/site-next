@@ -6,17 +6,19 @@ import { getBarkpassPosts } from "@/lib/barkpass-posts";
 import { getPosts } from "@/lib/posts";
 
 export async function getStaticProps() {
-  const archivePosts = await getArchivePosts();
-  const rafterPosts = await getRafterPosts();
-  const barkpassPosts = await getBarkpassPosts();
-  const posts = await getPosts();
+  const [archivePosts, rafterPosts, barkpassPosts, posts] = await Promise.all([
+    getArchivePosts(),
+    getRafterPosts(),
+    getBarkpassPosts(),
+    getPosts(),
+  ]);
 
   return {
     props: {
-      archivePosts: archivePosts.slice(0, 4),
+      archivePosts: archivePosts.slice(0, 5),
       rafterPosts,
       barkpassPosts,
-      posts,
+      posts: posts.slice(0, 5),
     },
   };
 }
@@ -28,76 +30,97 @@ export default function Home({
   posts,
 }) {
   return (
-    <div className="mx-auto p-4 mt-8 max-w-3xl">
+    <div className="mx-auto max-w-5xl p-4 mt-8">
       <Head>
         <title>Josh Larson</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mb-8">
-        <h1 className="text-4xl font-black mb-4">
-          I'm Josh Larson. Nice to meet you!
-        </h1>
-        <p className="text-lg font-medium leading-relaxed">
-          I'm a dad, a software engineer, a husband, and a creator. I work at{" "}
-          <b>Vox Media</b>, and I live near <b>Des Moines, Iowa</b>. I'm
-          passionate about <b>solving hard problems</b> and creating great
-          experiences for other developers and end-users. Occasionally, I'll
-          build things and write about them. This is one of those occasions.
-        </p>
+      <div className="max-w-3xl mx-auto mb-8">
+        <div className="mb-8 ">
+          <h1 className="text-4xl font-black mb-4">
+            I'm Josh Larson. Nice to meet you!
+          </h1>
+          <p className="text-lg font-medium leading-relaxed">
+            I'm a dad, a software engineer, a husband, and a creator. I work at{" "}
+            <b>Vox Media</b>, and I live near <b>Des Moines, Iowa</b>. I'm
+            passionate about <b>solving hard problems</b> and creating great
+            experiences for other developers and end-users. Occasionally, I'll
+            build things and write about them. This is one of those occasions.
+          </p>
+        </div>
+        <ul>
+          {posts.map((post) => {
+            return (
+              <li className="mb-2" key={post.path}>
+                <Link
+                  href="/posts/[slug]"
+                  as={`/posts/${post.path.replace(/.mdx?/, "")}`}
+                >
+                  <a>
+                    <div className="block text-lg mb-1">{post.title}</div>
+                    <time
+                      className="text-sm text-gray-600"
+                      dateTime={post.date}
+                    >
+                      {new Date(post.date).toLocaleString()}
+                    </time>
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-      <h2>Posts:</h2>
-      <ul>
-        {posts.map((post) => {
-          return (
-            <li key={post.path}>
-              <Link
-                href="/posts/[slug]"
-                as={`/posts/${post.path.replace(/.mdx?/, "")}`}
-              >
-                <a>{post.title}</a>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-      <h2>Archive:</h2>
-      <ul>
-        {archivePosts.map((post) => {
-          return (
-            <li key={post.id}>
-              <Link href="/[...slug]" as={`/${post.nextSlug.join("/")}`}>
-                <a>{post.title.rendered}</a>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-      <h2>Inside Rafter</h2>
-      <ul>
-        {rafterPosts.map((post) => {
-          return (
-            <li key={post.title}>
-              <a href={post.link}>{post.title}</a>
-            </li>
-          );
-        })}
-      </ul>
-      <h2>Building Barkpass</h2>
-      <ul>
-        {barkpassPosts.map((post) => {
-          return (
-            <li key={post.title}>
-              <a href={post.url}>{post.title}</a>
-            </li>
-          );
-        })}
-      </ul>
-      - Software engineer - Work at Vox Media - Passionate about solving hard
-      problems and creating good developer experiences WRITING - Main blog (MDX
-      posts from here) - Inside Rafter - Building Barkpass - Archive (WP)
+      <div className="grid gap-4 grid-cols-3 mb-8">
+        <PostList title="Inside Rafter">
+          <ul>
+            {rafterPosts.map((post) => {
+              return (
+                <li key={post.title}>
+                  <a href={post.link}>{post.title}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </PostList>
+        <PostList title="Building Barkpass">
+          <ul>
+            {barkpassPosts.map((post) => {
+              return (
+                <li key={post.title}>
+                  <a href={post.url}>{post.title}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </PostList>
+        <PostList title="Archive">
+          <ul>
+            {archivePosts.map((post) => {
+              return (
+                <li key={post.id}>
+                  <Link href="/[...slug]" as={`/${post.nextSlug.join("/")}`}>
+                    <a>{post.title.rendered}</a>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </PostList>
+      </div>
       PROJECTS - Barkpass - Rafter - Fresa - Full Stack Fundamentals (on-hold) -
-      Lifeboat (archived) GLANCES - Videos with Barrett - Good pics I want to
-      share - Livestreams - Other quirky things
+      Lifeboat (archived) <br />
+      GLANCES - Videos with Barrett - Good pics I want to share - Livestreams -
+      Other quirky things
+    </div>
+  );
+}
+
+function PostList({ title, children }) {
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-2">📝 {title}</h2>
+      {children}
     </div>
   );
 }
