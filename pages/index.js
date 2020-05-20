@@ -49,7 +49,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
                   <a>
                     <div className="block text-lg mb-1">{post.title}</div>
                     <time className="text-sm text-gray-600" dateTime={post.date}>
-                      {new Date(post.date).toLocaleString()}
+                      {new Date(post.date).toLocaleDateString()}
                     </time>
                   </a>
                 </Link>
@@ -58,13 +58,18 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           })}
         </ul>
       </div>
-      <div className="grid gap-4 grid-cols-3 mb-8 mx-auto max-w-5xl p-4">
+      <div className="grid gap-4 lg:grid-cols-3 mb-8 mx-auto max-w-6xl p-4">
         <PostList title="Inside Rafter">
           <ul>
             {rafterPosts.map((post) => {
               return (
-                <li key={post.title}>
-                  <a href={post.url}>{post.title}</a>
+                <li className="mb-1" key={post.title}>
+                  <a className="block" href={post.url}>
+                    <div>{post.title}</div>
+                    <time className="text-sm text-gray-600" dateTime={post.date}>
+                      {new Date(post.date).toLocaleDateString()}
+                    </time>
+                  </a>
                 </li>
               );
             })}
@@ -74,8 +79,13 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           <ul>
             {barkpassPosts.map((post) => {
               return (
-                <li key={post.title}>
-                  <a href={post.url}>{post.title}</a>
+                <li className="mb-1" key={post.title}>
+                  <a className="block" href={post.url}>
+                    <div>{post.title}</div>
+                    <time className="text-sm text-gray-600" dateTime={post.date_published}>
+                      {new Date(post.date_published).toLocaleDateString()}
+                    </time>
+                  </a>
                 </li>
               );
             })}
@@ -85,9 +95,14 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           <ul>
             {archivePosts.map((post) => {
               return (
-                <li key={post.id}>
+                <li className="mb-1" key={post.id}>
                   <Link href="/[...slug]" as={`/${post.nextSlug.join('/')}`}>
-                    <a>{post.title}</a>
+                    <a className="block">
+                      <div>{post.title}</div>
+                      <time className="text-sm text-gray-600" dateTime={post.date}>
+                        {new Date(post.date).toLocaleDateString()}
+                      </time>
+                    </a>
                   </Link>
                 </li>
               );
