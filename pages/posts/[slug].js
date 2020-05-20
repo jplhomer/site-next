@@ -41,7 +41,10 @@ export default function Post({ post, filename }) {
       <Head>
         <title>{post.title}</title>
       </Head>
-      <h1 className="mb-8">{post.title}</h1>
+      <h1 className="mb-4">{post.title}</h1>
+      <div className="mb-8">
+        <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>
+      </div>
       <div className="prose">
         <Article />
       </div>

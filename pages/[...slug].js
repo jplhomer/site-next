@@ -35,7 +35,10 @@ export default function ArchivePost({ post }) {
         <title>{post.title}</title>
       </Head>
       <div className="max-w-3xl p-4 mx-auto prose">
-        <h1 className="mb-8">{post.title}</h1>
+        <h1 className="mb-4">{post.title}</h1>
+        <div className="mb-8">
+          <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>
+        </div>
         <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
       </div>
     </div>
