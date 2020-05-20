@@ -1,4 +1,4 @@
-import { getPosts, getPost } from '@/lib/posts';
+import { getPosts, getPost, getFilenameFromSlug } from '@/lib/posts';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
@@ -20,18 +20,21 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const post = await getPost(slug + '.md');
+  const filename = await getFilenameFromSlug(slug);
+
+  const post = await getPost(filename);
 
   return {
     props: {
       post,
       slug,
+      filename,
     },
   };
 }
 
-export default function Post({ post, slug }) {
-  const Article = dynamic(() => import(`@/posts/${slug}.md`));
+export default function Post({ post, filename }) {
+  const Article = dynamic(() => import(`@/posts/${filename}`));
 
   return (
     <div className="max-w-3xl p-4 mx-auto prose">
