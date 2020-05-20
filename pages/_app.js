@@ -1,6 +1,7 @@
 import "@/css/tailwind.css";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import PostLayout from "@/components/PostLayout";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -22,7 +23,7 @@ function ConditionalWrapper({ children }) {
 
   if (/^\/posts\/\w+/.test(router.pathname)) {
     // TODO: Replace with real blog layout
-    return <div className="max-w-md mx-auto">{children}</div>;
+    return <PostLayout>{children}</PostLayout>;
   }
 
   return children;
