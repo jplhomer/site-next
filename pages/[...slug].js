@@ -1,15 +1,12 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { getArchivePosts } from "@/lib/archive-posts";
+import { getArchivePosts, getArchivePost } from "@/lib/archive-posts";
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(
-    `http://jplhomer.test/wp-json/wp/v2/posts?slug=${params.slug[2]}`
-  );
-  const post = await res.json();
+  const post = await getArchivePost(params);
 
   return {
-    props: { post: post[0] },
+    props: { post },
   };
 }
 
