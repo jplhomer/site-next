@@ -21,8 +21,13 @@
     ]
   },
   "dependencies": {
+    "@agentofuser/remark-oembed": "^1.0.4",
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
+    "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@mapbox/rehype-prism": "^0.4.0",
-    "@mdx-js/loader": "^1.6.1",
+    "@mdx-js/mdx": "^1.6.4",
+    "@mdx-js/react": "^1.6.4",
     "@tailwindcss/ui": "^0.3.0",
     "autoprefixer": "^9.8.0",
     "front-matter": "^3.2.1",

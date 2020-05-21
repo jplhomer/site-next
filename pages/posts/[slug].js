@@ -1,5 +1,4 @@
 import { getPosts, getPost, getFilenameFromSlug } from '@/lib/posts';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 export async function getStaticPaths() {
@@ -22,7 +21,7 @@ export async function getStaticProps({ params }) {
   const { slug } = params;
   const filename = await getFilenameFromSlug(slug);
 
-  const post = await getPost(filename);
+  const post = await getPost(filename, true);
 
   return {
     props: {
@@ -33,9 +32,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function Post({ post, filename }) {
-  const Article = dynamic(() => import(`@/posts/${filename}`));
-
+export default function Post({ post }) {
   return (
     <div className="max-w-3xl p-4 mx-auto prose">
       <Head>
@@ -45,9 +42,7 @@ export default function Post({ post, filename }) {
       <div className="mb-8">
         <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>
       </div>
-      <div className="prose">
-        <Article />
-      </div>
+      <div className="prose" dangerouslySetInnerHTML={{ __html: post.body }}></div>
     </div>
   );
 }
