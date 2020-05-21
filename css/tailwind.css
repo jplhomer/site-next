@@ -22,7 +22,7 @@ html {
     @apply relative pl-5;
   }
   & ul li::before {
-    content: "";
+    content: '';
     @apply absolute left-0.5 top-2.5 block h-1.5 w-1.5 rounded-full bg-gray-300;
   }
   & a {
@@ -45,6 +45,13 @@ html {
   }
   & h2 + p {
     @apply mt-2;
+  }
+
+  & iframe,
+  & video,
+  & img,
+  & figure {
+    @apply max-w-full h-auto;
   }
 }
 

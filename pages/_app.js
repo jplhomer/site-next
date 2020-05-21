@@ -1,4 +1,5 @@
 import '@/css/tailwind.css';
+import '@/css/prism-nord.css';
 import Head from 'next/head';
 import Layout from '@/components/Layout';
 

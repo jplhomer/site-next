@@ -13,7 +13,7 @@ const mdx = (pluginOptions = {}) => (nextConfig = {}) => {
             loader: '@mdx-js/loader',
             options: pluginOptions.options,
           },
-          path.join(__dirname, './frontmatter-loader'),
+          path.join(__dirname, './plugins/frontmatter-loader'),
         ],
       });
 
@@ -28,8 +28,10 @@ const mdx = (pluginOptions = {}) => (nextConfig = {}) => {
 
 const withMDX = mdx({
   extension: /\.mdx?$/,
-  remarkPlugins: [],
-  rehypePlugins: [],
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [[require('@mapbox/rehype-prism'), { ignoreMissing: true }]],
+  },
 });
 
 module.exports = withMDX();
