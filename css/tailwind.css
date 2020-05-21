@@ -51,7 +51,7 @@ html {
   & video,
   & img,
   & figure {
-    @apply max-w-full h-auto;
+    @apply max-w-full;
   }
 }
 
