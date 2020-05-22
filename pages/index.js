@@ -214,6 +214,7 @@ function Project({ title, image, children, flipped = false }) {
       <div className={`lg:absolute lg:w-1/2 ${flipped ? 'lg:inset-y-0 lg:left-0' : 'lg:inset-y-0 lg:right-0 '}`}>
         <img
           className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+          loading="lazy"
           src={
             image ||
             'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2850&amp;q=80'
