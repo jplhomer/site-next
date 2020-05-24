@@ -6,6 +6,8 @@ import { getRafterPosts } from '@/lib/rafter-posts';
 import { getBarkpassPosts } from '@/lib/barkpass-posts';
 import { getPosts } from '@/lib/posts';
 
+import Intro from '@/prose/intro.md';
+
 export async function getStaticProps() {
   const [archivePosts, rafterPosts, barkpassPosts, posts] = await Promise.all([
     getArchivePosts(5),
@@ -34,12 +36,9 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
       <div className="max-w-3xl mx-auto mb-8 p-4">
         <div className="mb-8">
           <h1 className="text-4xl font-black mb-4">I'm Josh Larson. Nice to meet you!</h1>
-          <p className="text-lg font-medium leading-relaxed">
-            I'm a dad, a software engineer, a husband, and a creator. I work at <b>Vox Media</b>, and I live near{' '}
-            <b>Des Moines, Iowa</b>. I'm passionate about <b>solving hard problems</b> and creating great experiences
-            for other developers and end-users. Occasionally, I'll build things and write about them. This is one of
-            those occasions.
-          </p>
+          <div className="prose text-lg font-medium leading-relaxed mb-4">
+            <Intro />
+          </div>
         </div>
         <ul className="mb-4">
           {posts.map((post) => {
