@@ -235,7 +235,7 @@ function Project({ title, image, children, status, buttonUrl, buttonText, flippe
             <div className="sm:text-center lg:text-left">
               <div className="flex justify-center md:justify-start">
                 <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 ml-auto lg:ml-0 sm:leading-none mr-4">
-                  {title}
+                  <a href={buttonUrl}>{title}</a>
                 </h2>
                 <ProjectBadge>{status}</ProjectBadge>
               </div>
