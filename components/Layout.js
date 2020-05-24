@@ -29,6 +29,9 @@ export default function Layout({ children }) {
           <a className="mx-2" href="https://twitter.com/jplhomer">
             Twitter
           </a>
+          <a className="mx-2" href="https://github.com/jplhomer">
+            GitHub
+          </a>
           <a className="mx-2" href="https://linkedin.com/in/jplhomer">
             LinkedIn
           </a>
