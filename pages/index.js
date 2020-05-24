@@ -117,33 +117,66 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           <h2 className="font-bold text-2xl mb-4">Projects</h2>
           <p>I like to build things in my spare time. Here are a few selections:</p>
         </div>
-        <Project title="Barkpass" image="https://www.barkpass.com/images/barkpass_dashboard.jpg">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque rerum molestiae tenetur et beatae nobis
-          voluptatem, blanditiis unde quibusdam laboriosam, reprehenderit eum nemo cum suscipit. Placeat porro eveniet
-          numquam in!
+        <Project
+          title="Barkpass"
+          image="https://www.barkpass.com/images/barkpass_dashboard.jpg"
+          status="Launched"
+          buttonText="Visit Barkpass"
+          buttonUrl="https://www.barkpass.com"
+        >
+          Launched in 2019, Barkpass is a pet licensing and dog park management software-as-a-service created by Bri and
+          me. We have one customer so far, but we're looking to expand soon. Be sure to{' '}
+          <a className="underline" href="https://building.barkpass.com">
+            check out the blog
+          </a>
+          .
         </Project>
-        <Project title="Rafter" image="/rafter.png" flipped>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque rerum molestiae tenetur et beatae nobis
-          voluptatem, blanditiis unde quibusdam laboriosam, reprehenderit eum nemo cum suscipit. Placeat porro eveniet
-          numquam in!
+        <Project
+          title="Rafter"
+          image="/rafter.png"
+          status="In Progress"
+          buttonText="View on GitHub"
+          buttonUrl="https://github.com/rafter-platform/rafter"
+          flipped
+        >
+          Rafter is an open-source serverless deployment platform built on top of Google Cloud. It's a side project I
+          started building in 2020. I'm also writing about it on{' '}
+          <a className="underline" href="https://blog.rafter.app">
+            its own blog
+          </a>
+          .
         </Project>
-        <Project title="Fresa" image="/fresa.png">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque rerum molestiae tenetur et beatae nobis
-          voluptatem, blanditiis unde quibusdam laboriosam, reprehenderit eum nemo cum suscipit. Placeat porro eveniet
-          numquam in!
+        <Project
+          title="Fresa"
+          image="/fresa.png"
+          status="Launched"
+          buttonText="View Docs"
+          buttonUrl="https://fresa.jplhomer.org"
+        >
+          Imagine if WordPress objects were as fluent and modern as Laravel Eloquent or Rails ActiveRecord models. Fresa
+          makes that dream come true.
         </Project>
-        <Project title="Full-Stack Fundamentals" image="/fsf.png" flipped>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque rerum molestiae tenetur et beatae nobis
-          voluptatem, blanditiis unde quibusdam laboriosam, reprehenderit eum nemo cum suscipit. Placeat porro eveniet
-          numquam in!
+        <Project
+          title="Full-Stack Fundamentals"
+          image="/fsf.png"
+          status="On Hold"
+          buttonText="Visit Website"
+          buttonUrl="https://fullstackfundamentals.com"
+          flipped
+        >
+          In 2018, I started an educational website where I'd planned to record screencasts of all the cool things I
+          learned. As it turns out, this was a lot more time-consuming than I thought, and the site never took off. But
+          it's still out there!
         </Project>
         <Project
           title="Lifeboat"
+          status="Archived"
+          buttonText="Visit Website"
+          buttonUrl="https://uselifeboat.com"
           image="https://user-images.githubusercontent.com/848147/32585014-ea2a74b2-c4c0-11e7-8563-9bd4800590ff.png"
         >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque rerum molestiae tenetur et beatae nobis
-          voluptatem, blanditiis unde quibusdam laboriosam, reprehenderit eum nemo cum suscipit. Placeat porro eveniet
-          numquam in!
+          Docker Compose is a command-line tool which can feel out of reach for beginners. I built a graphical user
+          interface for it and called it Lifeboat.
         </Project>
       </div>
       <div className="max-w-3xl mx-auto mb-8 p-4">
@@ -177,14 +210,14 @@ function PostList({ title, children, link }) {
   );
 }
 
-function Project({ title, image, children, flipped = false }) {
+function Project({ title, image, children, status, buttonUrl, buttonText, flipped = false }) {
   const polygonPoints = flipped ? '0,0 50,0 100,100 50,100' : '50,0 100,0 50,100 0,100';
   return (
     <div className="relative bg-white overflow-hidden">
       <div className="max-w-screen-xl mx-auto flex">
         <div
-          className={`relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 ${
-            flipped ? 'lg:ml-auto lg:mr-0 lg:pl-8' : ''
+          className={`relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 w-full ${
+            flipped ? 'lg:ml-auto lg:mr-0 lg:pl-10' : ''
           }`}
         >
           <svg
@@ -200,12 +233,25 @@ function Project({ title, image, children, flipped = false }) {
 
           <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:pt-12 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28">
             <div className="sm:text-center lg:text-left">
-              <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-5xl">
-                {title}
-              </h2>
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+              <div className="flex justify-center md:justify-start">
+                <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 ml-auto lg:ml-0 sm:leading-none mr-4">
+                  {title}
+                </h2>
+                <ProjectBadge>{status}</ProjectBadge>
+              </div>
+              <p className="mt-3 mb-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl md:mb-5 lg:mx-0">
                 {children}
               </p>
+              <span className="inline-flex rounded-md shadow-sm">
+                <span className="inline-flex rounded-md shadow-sm">
+                  <a
+                    href={buttonUrl}
+                    className="inline-flex items-center px-4 py-2 border border-gray-300 text-base leading-6 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+                  >
+                    {buttonText}
+                  </a>
+                </span>
+              </span>
             </div>
           </div>
         </div>
@@ -222,5 +268,29 @@ function Project({ title, image, children, flipped = false }) {
         />
       </div>
     </div>
+  );
+}
+
+function ProjectBadge({ children }) {
+  const color = getColor();
+
+  function getColor() {
+    if (/progress/i.test(children)) {
+      return 'yellow';
+    }
+
+    if (/launch/i.test(children)) {
+      return 'green';
+    }
+
+    return 'gray';
+  }
+
+  return (
+    <span
+      className={`inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-${color}-100 text-${color}-800 m-auto ml-0`}
+    >
+      {children}
+    </span>
   );
 }
