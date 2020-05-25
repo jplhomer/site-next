@@ -26,6 +26,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@mapbox/rehype-prism": "^0.4.0",
+    "@mdx-js/loader": "^1.6.4",
     "@mdx-js/mdx": "^1.6.4",
     "@mdx-js/react": "^1.6.4",
     "@next/mdx": "^9.4.2",
