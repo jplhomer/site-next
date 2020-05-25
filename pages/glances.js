@@ -6,12 +6,31 @@ import Glance from '@/components/Glance';
 import useSWR from 'swr';
 import Loading from '@/components/Loading';
 import { fetcher } from '@/lib/fetcher';
+import { useKeyboard } from '@/lib/use-keyboard';
 
 Modal.setAppElement('#__next');
 
 export default function Glances() {
   const router = useRouter();
   const { data: glances, error } = useSWR('/api/glances', fetcher);
+
+  const isModalOpen = Boolean(router.query.glanceSlug);
+
+  useKeyboard('ArrowRight', () => navigateGlance());
+  useKeyboard('ArrowLeft', () => navigateGlance(-1));
+
+  function navigateGlance(direction = 1) {
+    if (!isModalOpen || !glances) return;
+
+    const currentGlance = router.query.glanceSlug;
+    const index = glances.findIndex((glance) => glance.slug === currentGlance);
+
+    if (index + direction === glances.length || index + direction == -1) return;
+
+    const newSlug = glances[index + direction].slug;
+
+    router.push(`/glances?glanceSlug=${newSlug}`, `/glances/${newSlug}`);
+  }
 
   if (error) return <p>{error.getMessage()}</p>;
   if (!glances) return <Loading />;
@@ -31,7 +50,7 @@ export default function Glances() {
       </div>
 
       <Modal
-        isOpen={Boolean(router.query.glanceSlug)}
+        isOpen={isModalOpen}
         onRequestClose={() => router.push('/glances')}
         contentLabel="Glance modal"
         style={{
