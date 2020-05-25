@@ -4,7 +4,7 @@ export async function getStaticPaths() {
   const glances = await getGlances();
   const paths = glances.map((glance) => ({
     params: {
-      id: glance.id,
+      slug: glance.slug,
     },
   }));
 
@@ -15,8 +15,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { id } = params;
-  const glance = { id };
+  const { slug } = params;
+  const glance = { slug };
 
   return {
     props: {

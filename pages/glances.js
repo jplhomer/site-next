@@ -22,7 +22,7 @@ export default function Glances() {
 
       <div className="grid grid-cols-3 mt-4 gap-6">
         {glances.map((glance) => (
-          <Link key={glance.id} href={`/glances?glanceId=${glance.id}`} as={`/glances/${glance.id}`}>
+          <Link key={glance.slug} href={`/glances?glanceSlug=${glance.slug}`} as={`/glances/${glance.slug}`}>
             <a>
               <img src={glance.image} />
             </a>
@@ -31,11 +31,29 @@ export default function Glances() {
       </div>
 
       <Modal
-        isOpen={Boolean(router.query.glanceId)}
+        isOpen={Boolean(router.query.glanceSlug)}
         onRequestClose={() => router.push('/glances')}
         contentLabel="Glance modal"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          },
+          content: {
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            borderRadius: '0',
+            right: 'auto',
+            bottom: 'auto',
+            padding: 0,
+            border: 'none',
+          },
+        }}
       >
-        <Glance glanceId={router.query.glanceId} />
+        <Glance
+          slug={router.query.glanceSlug}
+          glance={glances.find((glance) => glance.slug === router.query.glanceSlug)}
+        />
       </Modal>
     </div>
   );
