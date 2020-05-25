@@ -2,9 +2,20 @@ import Loading from './Loading';
 import HeartOutline from 'heroicons/outline/heart.svg';
 import HeartSolid from 'heroicons/solid/heart.svg';
 import { mergeClasses } from '@/lib/utils';
+import { useHearts } from '@/lib/use-hearts';
+import { useState, useEffect } from 'react';
 
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
+
+  const [isLiked, toggleLiked] = useHearts(glance.slug);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true));
+
+  /**
+   * Skip SSR, as we run into issues with localStorage-based like status below.
+   */
+  if (!isClient) return <Loading />;
 
   return (
     <div className={mergeClasses('md:flex', className)}>
@@ -17,7 +28,13 @@ export default function Glance({ glance, className }) {
 
           <footer>
             <div className="flex items-center mb-2 text-sm">
-              <HeartOutline className="w-7 h-7 mr-2" />
+              <button onClick={toggleLiked}>
+                {isLiked ? (
+                  <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
+                ) : (
+                  <HeartOutline className="w-7 h-7 mr-2" />
+                )}
+              </button>
               <span>Liked {glance.totalLikes} times</span>
             </div>
             <time className="text-xs text-gray-800" dateTime={glance.date}>
