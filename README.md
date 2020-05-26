@@ -18,11 +18,8 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 ## Glance ideas
 
-- Sax caroling
 - Barrett and Josh Piano
 - Misc Barrett photos
-- Barrett and Sonny song
 - Singing Beta songs
 - Old reporter reeel
 - Marching band photos/videos
-- Live coding
