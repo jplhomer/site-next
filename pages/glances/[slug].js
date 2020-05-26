@@ -33,6 +33,7 @@ export default function GlanceView({ glance }) {
       <NextSeo
         title={`Glance from ${new Date(glance.date).toDateString()}`}
         openGraph={{ images: [{ url: glance.image }] }}
+        description={glance.bodyRaw}
       />
       <Glance className="shadow mx-auto" glance={glance} />
     </div>
