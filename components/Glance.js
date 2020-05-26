@@ -13,12 +13,39 @@ export default function Glance({ glance, className }) {
   const [isLiked, toggleLiked] = useHearts(glance.slug);
   const [isClient, setIsClient] = useState(false);
   useEffect(() => setIsClient(true));
-  const { data: totalLikes } = useSWR(`/api/glance-likes?slug=${glance.slug}`, fetcher);
+  const { data: totalLikes, mutate } = useSWR(`/api/glance-likes?slug=${glance.slug}`, fetcher);
 
   /**
    * Skip SSR, as we run into issues with localStorage-based like status below.
    */
   if (!isClient) return <Loading />;
+
+  async function toggleLike(shouldDecrement) {
+    let body = {
+      slug: glance.slug,
+    };
+
+    if (shouldDecrement) {
+      body.decrement = true;
+    }
+
+    const res = await fetch('/api/toggle-glance-like', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    return await res.json();
+  }
+
+  function handleLikeClick() {
+    const shouldDecrement = isLiked;
+
+    toggleLiked();
+    mutate(toggleLike(shouldDecrement));
+  }
 
   return (
     <div className={mergeClasses('md:flex', className)}>
@@ -31,7 +58,7 @@ export default function Glance({ glance, className }) {
 
           <footer>
             <div className="flex items-center mb-2 text-sm">
-              <button onClick={toggleLiked}>
+              <button onClick={handleLikeClick}>
                 {isLiked ? (
                   <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
                 ) : (
