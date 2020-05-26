@@ -1,6 +1,7 @@
 import Loading from './Loading';
 import HeartOutline from 'heroicons/outline/heart.svg';
 import HeartSolid from 'heroicons/solid/heart.svg';
+import Share from 'heroicons/outline/share.svg';
 import { mergeClasses } from '@/lib/utils';
 import { useHearts } from '@/lib/use-hearts';
 import { useFirestore } from '@/lib/use-firebase';
@@ -20,7 +21,7 @@ export default function Glance({ glance, className }) {
           <div className="mb-2 prose text-sm" dangerouslySetInnerHTML={{ __html: glance.body }}></div>
 
           <footer>
-            <GlanceLikes glance={glance} />
+            <GlanceActions glance={glance} />
             <time className="text-xs text-gray-800" dateTime={glance.date}>
               {new Date(glance.date).toLocaleDateString()}
             </time>
@@ -80,7 +81,7 @@ function GlanceVideoMedia({ glance }) {
   return <div ref={player} />;
 }
 
-function GlanceLikes({ glance }) {
+function GlanceActions({ glance }) {
   const [totalLikes, likesLoading, setTotalLikes] = useFirestore('glance-likes', glance.slug);
   const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
 
@@ -88,18 +89,42 @@ function GlanceLikes({ glance }) {
   const likes = totalLikes || 0;
   const label = likes === 1 ? 'time' : 'times';
 
+  const canShare = Boolean(navigator.share);
+
+  async function share() {
+    const url = `https://${new URL(window.location).hostname}/glances/${glance.slug}`;
+    const glanceDate = new Date(glance.date).toDateString();
+
+    try {
+      await navigator.share({
+        url,
+        title: `Glance from ${glanceDate}`,
+        text: `Check out this Glance from ${glanceDate}`,
+      });
+    } catch (e) {
+      // Share sheet was probably closed
+    }
+  }
+
   return (
-    <div className="flex items-center mb-2 text-sm">
-      <button onClick={toggleLiked}>
-        {isLiked ? (
-          <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
-        ) : (
-          <HeartOutline className="w-7 h-7 mr-2" />
+    <div className="mb-2 text-sm">
+      <div className="flex items-center mb-1">
+        <button onClick={toggleLiked}>
+          {isLiked ? (
+            <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
+          ) : (
+            <HeartOutline className="w-7 h-7 mr-2" />
+          )}
+        </button>
+        {canShare && (
+          <button onClick={share}>
+            <Share className="w-7 h-7 mr-2" />
+          </button>
         )}
-      </button>
-      <span>
+      </div>
+      <p>
         Liked {likes} {label}
-      </span>
+      </p>
     </div>
   );
 }
