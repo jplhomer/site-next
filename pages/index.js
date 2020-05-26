@@ -5,15 +5,19 @@ import { getArchivePosts } from '@/lib/archive-posts';
 import { getRafterPosts } from '@/lib/rafter-posts';
 import { getBarkpassPosts } from '@/lib/barkpass-posts';
 import { getPosts } from '@/lib/posts';
+import { getGlances } from '@/lib/glances';
 
 import Intro from '@/prose/intro.md';
+import GlancePreview from '@/components/GlancePreview';
+import styles from '@/css/glances.module.css';
 
 export async function getStaticProps() {
-  const [archivePosts, rafterPosts, barkpassPosts, posts] = await Promise.all([
+  const [archivePosts, rafterPosts, barkpassPosts, posts, glances] = await Promise.all([
     getArchivePosts(5),
     getRafterPosts(),
     getBarkpassPosts(),
     getPosts(),
+    getGlances(),
   ]);
 
   return {
@@ -22,11 +26,12 @@ export async function getStaticProps() {
       rafterPosts,
       barkpassPosts,
       posts: posts.slice(0, 5),
+      glances: glances.slice(0, 5),
     },
   };
 }
 
-export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }) {
+export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts, glances }) {
   return (
     <div className="mt-8">
       <NextSeo title="Josh Larson - Software Engineer, Dad, Husband, Creator" />
@@ -176,9 +181,24 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           interface for it and called it Lifeboat.
         </Project>
       </div>
-      <div className="max-w-3xl mx-auto mb-8 p-4">
+      <div className="max-w-5xl mx-auto mb-8 p-4">
         <h2 className="font-bold text-2xl mb-4">Glances</h2>
-        <p>Videos with Barrett - Good pics I want to share - Livestreams - Other quirky things</p>
+        <p className="mb-8">
+          Check out some highlights from my world, or{' '}
+          <Link href="/glances">
+            <a className="underline">view them all</a>
+          </Link>
+          :
+        </p>
+        <div className="grid gap-4 md:gap-8 grid-cols-3 md:grid-cols-5">
+          {glances.map((glance) => (
+            <Link key={glance.slug} href="/glances/[slug]" as={`/glances/${glance.slug}`}>
+              <a className={styles['glance-preview']}>
+                <GlancePreview glance={glance} />
+              </a>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
