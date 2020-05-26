@@ -1,6 +1,8 @@
 import { useFirestore } from '@/lib/use-firebase';
 import styles from '@/css/glances.module.css';
 import Heart from 'heroicons/solid/heart.svg';
+import Play from 'heroicons/solid/play.svg';
+import Photograph from 'heroicons/solid/photograph.svg';
 
 export default function GlancePreview({ glance }) {
   return (
@@ -12,6 +14,7 @@ export default function GlancePreview({ glance }) {
         className="max-w-none absolute w-full h-full inset-0 object-cover object-center"
       />
       <HeartsOverlay glance={glance} />
+      <TypeOverlay glance={glance} />
     </div>
   );
 }
@@ -27,4 +30,22 @@ function HeartsOverlay({ glance }) {
       </div>
     </div>
   );
+}
+
+function TypeOverlay({ glance }) {
+  return (
+    <div className="top-0 right-0 absolute p-2">
+      <TypeIcon glance={glance} />
+    </div>
+  );
+}
+
+function TypeIcon({ glance }) {
+  const classList = 'w-5 h-5 text-white fill-current opacity-75';
+
+  if (glance.video) {
+    return <Play className={classList} />;
+  }
+
+  return <Photograph className={classList} />;
 }
