@@ -69,6 +69,8 @@ function YouTubeVideo({ glance }) {
       youtube = new YT.Player(player.current, {
         height: '390',
         width: '640',
+        iv_load_policy: 3,
+        playsinline: 1,
         videoId: new URL(glance.video).searchParams.get('v'),
       });
     }
