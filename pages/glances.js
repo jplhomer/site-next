@@ -10,6 +10,8 @@ import { useKeyboard } from '@/lib/use-keyboard';
 import { NextSeo } from 'next-seo';
 import styles from '@/css/glances.module.css';
 import GlancePreview from '@/components/GlancePreview';
+import { useEffect } from 'react';
+import { useMedia } from '@/lib/use-media';
 
 Modal.setAppElement('#__next');
 
@@ -18,9 +20,19 @@ export default function Glances() {
   const { data: glances, error } = useSWR('/api/glances', fetcher);
 
   const isModalOpen = Boolean(router.query.glanceSlug);
+  const isScrollActive = Boolean(router.query.glanceSlugScroll);
+
+  const glanceLinkParam = useMedia(['(min-width: 768px)'], ['glanceSlug'], 'glanceSlugScroll');
 
   useKeyboard('ArrowRight', () => navigateGlance());
   useKeyboard('ArrowLeft', () => navigateGlance(-1));
+
+  useEffect(() => {
+    if (router.query.glanceSlugScroll) {
+      const item = document.getElementById(router.query.glanceSlugScroll);
+      window.scroll(0, item.offsetTop);
+    }
+  }, [router.query.glanceSlugScroll]);
 
   function navigateGlance(direction = 1) {
     if (!isModalOpen || !glances) return;
@@ -45,15 +57,25 @@ export default function Glances() {
 
       <p className="text-sm text-gray-600 mb-8">Glances give you a peek into my life and the things I enjoy.</p>
 
-      <div className="grid grid-cols-3 mt-4 gap-6">
-        {glances.map((glance) => (
-          <Link key={glance.slug} href={`/glances?glanceSlug=${glance.slug}`} as={`/glances/${glance.slug}`}>
-            <a className={styles['glance-preview']}>
-              <GlancePreview glance={glance} />
-            </a>
-          </Link>
-        ))}
-      </div>
+      {isScrollActive ? (
+        <ul className="-mx-4">
+          {glances.map((glance) => (
+            <li id={glance.slug} key={glance.slug} className="mb-8">
+              <Glance glance={glance} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="grid grid-cols-3 mt-4 gap-1 md:gap-6 -mx-4 md:mx-0">
+          {glances.map((glance) => (
+            <Link key={glance.slug} href={`/glances?${glanceLinkParam}=${glance.slug}`} as={`/glances/${glance.slug}`}>
+              <a className={styles['glance-preview']}>
+                <GlancePreview glance={glance} />
+              </a>
+            </Link>
+          ))}
+        </div>
+      )}
 
       <Modal
         isOpen={isModalOpen}
@@ -72,7 +94,7 @@ export default function Glances() {
             bottom: 'auto',
             padding: 0,
             border: 'none',
-            maxWidth: '815px',
+            width: '65vw',
           },
         }}
       >
