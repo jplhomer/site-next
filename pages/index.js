@@ -110,7 +110,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
         </PostList>
       </div>
       <div>
-        <div className="max-w-3xl mx-auto mb-8 p-4">
+        <div className="max-w-5xl mx-auto mb-8 p-4">
           <h2 className="font-bold text-2xl mb-4">Projects</h2>
           <p>I like to build things in my spare time. Here are a few selections:</p>
         </div>
@@ -208,61 +208,39 @@ function PostList({ title, children, link }) {
 }
 
 function Project({ title, image, children, status, buttonUrl, buttonText, flipped = false }) {
-  const polygonPoints = flipped ? '0,0 50,0 100,100 50,100' : '50,0 100,0 50,100 0,100';
   return (
-    <div className="relative bg-white overflow-hidden">
-      <div className="max-w-screen-xl mx-auto flex">
-        <div
-          className={`relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 w-full ${
-            flipped ? 'lg:ml-auto lg:mr-0 lg:pl-10' : ''
-          }`}
-        >
-          <svg
-            className={`hidden lg:block absolute h-full w-48 text-white transform ${
-              flipped ? 'left-0 inset-y-0 -translate-x-1/2' : 'right-0 inset-y-0 translate-x-1/2'
-            }`}
-            fill="currentColor"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-          >
-            <polygon points={polygonPoints}></polygon>
-          </svg>
-
-          <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:pt-12 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28">
-            <div className="sm:text-center lg:text-left">
-              <div className="flex justify-center md:justify-start">
-                <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 ml-auto lg:ml-0 sm:leading-none mr-4">
-                  <a href={buttonUrl}>{title}</a>
-                </h2>
-                <ProjectBadge>{status}</ProjectBadge>
-              </div>
-              <p className="mt-3 mb-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl md:mb-5 lg:mx-0">
-                {children}
-              </p>
-              <span className="inline-flex rounded-md shadow-sm">
-                <span className="inline-flex rounded-md shadow-sm">
-                  <a
-                    href={buttonUrl}
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 text-base leading-6 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
-                  >
-                    {buttonText}
-                  </a>
-                </span>
-              </span>
-            </div>
+    <div className={`py-12 ${flipped ? 'bg-white' : ''}`}>
+      <div className={`max-w-5xl mx-auto px-4 md:px-0 md:flex ${flipped ? 'flex-row-reverse' : ''}`}>
+        <div className="mb-8 md:mb-0 md:w-1/2 md:px-4">
+          <div className="flex">
+            <h2 className="inline-flex text-2xl tracking-tight leading-10 font-bold sm:leading-none mr-4">
+              <a href={buttonUrl}>{title}</a>
+            </h2>
+            <ProjectBadge>{status}</ProjectBadge>
           </div>
+          <p className="mt-3 mb-3 text-base sm:mt-5 md:mt-5 md:mb-5">{children}</p>
+          <span className="inline-flex rounded-md shadow-sm">
+            <span className="inline-flex rounded-md shadow-sm">
+              <a
+                href={buttonUrl}
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-base leading-6 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+              >
+                {buttonText}
+              </a>
+            </span>
+          </span>
         </div>
-      </div>
-      <div className={`lg:absolute lg:w-1/2 ${flipped ? 'lg:inset-y-0 lg:left-0' : 'lg:inset-y-0 lg:right-0 '}`}>
-        <img
-          className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-          loading="lazy"
-          src={
-            image ||
-            'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2850&amp;q=80'
-          }
-          alt=""
-        />
+        <div className="md:w-1/2  md:px-4">
+          <img
+            loading="lazy"
+            className="shadow-lg"
+            src={
+              image ||
+              'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2850&amp;q=80'
+            }
+            alt=""
+          />
+        </div>
       </div>
     </div>
   );
