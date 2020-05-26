@@ -8,9 +8,6 @@ import { useFirestore } from '@/lib/use-firebase';
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
-  const [totalLikes, likesLoading, setTotalLikes] = useFirestore('glance-likes', glance.slug);
-  const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
-
   return (
     <div className={mergeClasses('md:flex', className)}>
       <div className="flex-grow-0 flex items-center justify-center bg-black">
@@ -21,24 +18,33 @@ export default function Glance({ glance, className }) {
           <div className="font-medium mb-2" dangerouslySetInnerHTML={{ __html: glance.body }}></div>
 
           <footer>
-            {!likesLoading && (
-              <div className="flex items-center mb-2 text-sm">
-                <button onClick={toggleLiked}>
-                  {isLiked ? (
-                    <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
-                  ) : (
-                    <HeartOutline className="w-7 h-7 mr-2" />
-                  )}
-                </button>
-                <span>Liked {totalLikes || 0} times</span>
-              </div>
-            )}
+            <GlanceLikes glance={glance} />
             <time className="text-xs text-gray-800" dateTime={glance.date}>
               {new Date(glance.date).toLocaleString()}
             </time>
           </footer>
         </article>
       </div>
+    </div>
+  );
+}
+
+function GlanceLikes({ glance }) {
+  const [totalLikes, likesLoading, setTotalLikes] = useFirestore('glance-likes', glance.slug);
+  const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
+
+  if (likesLoading) return <p>...</p>;
+
+  return (
+    <div className="flex items-center mb-2 text-sm">
+      <button onClick={toggleLiked}>
+        {isLiked ? (
+          <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
+        ) : (
+          <HeartOutline className="w-7 h-7 mr-2" />
+        )}
+      </button>
+      <span>Liked {totalLikes || 0} times</span>
     </div>
   );
 }
