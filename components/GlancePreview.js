@@ -23,7 +23,7 @@ function HeartsOverlay({ glance }) {
     <div className={`bg-black bg-opacity-50 absolute inset-0 w-full h-full flex ${styles.overlay}`}>
       <div className="m-auto text-white font-medium text-lg flex items-center">
         <Heart className="w-5 h-5" />
-        <span className="ml-1">{likesLoading ? '...' : totalLikes || 0}</span>
+        <span className="ml-1">{likesLoading ? '...' : Number(totalLikes || 0).toLocaleString()}</span>
       </div>
     </div>
   );

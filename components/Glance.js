@@ -151,7 +151,7 @@ function GlanceActions({ glance }) {
         )}
       </div>
       <p>
-        Liked {likes} {label}
+        Liked {Number(likes).toLocaleString()} {label}
       </p>
     </div>
   );
