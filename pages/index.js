@@ -115,26 +115,11 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           <p>I like to build things in my spare time. Here are a few selections:</p>
         </div>
         <Project
-          title="Barkpass"
-          image="https://www.barkpass.com/images/barkpass_dashboard.jpg"
-          status="Launched"
-          buttonText="Visit Barkpass"
-          buttonUrl="https://www.barkpass.com"
-        >
-          Launched in 2019, Barkpass is a pet licensing and dog park management software-as-a-service created by Bri and
-          me. We have one customer so far, but we're looking to expand soon. Be sure to{' '}
-          <a className="underline" href="https://building.barkpass.com">
-            check out the blog
-          </a>
-          .
-        </Project>
-        <Project
           title="Rafter"
-          image="/rafter.png"
+          image="/rafter.jpg"
           status="In Progress"
           buttonText="View on GitHub"
           buttonUrl="https://github.com/rafter-platform/rafter"
-          flipped
         >
           Rafter is an open-source serverless deployment platform built on top of Google Cloud. It's a side project I
           started building in 2020. I'm also writing about it on{' '}
@@ -144,8 +129,23 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           .
         </Project>
         <Project
+          title="Barkpass"
+          image="https://www.barkpass.com/images/barkpass_dashboard.jpg"
+          status="Launched"
+          buttonText="Visit Barkpass"
+          buttonUrl="https://www.barkpass.com"
+          flipped
+        >
+          Launched in 2019, Barkpass is a pet licensing and dog park management software-as-a-service created by Bri and
+          me. We have one customer so far, but we're looking to expand soon. Be sure to{' '}
+          <a className="underline" href="https://building.barkpass.com">
+            check out the blog
+          </a>
+          .
+        </Project>
+        <Project
           title="Fresa"
-          image="/fresa.png"
+          image="/fresa.jpg"
           status="Launched"
           buttonText="View Docs"
           buttonUrl="https://fresa.jplhomer.org"
@@ -155,7 +155,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
         </Project>
         <Project
           title="Full-Stack Fundamentals"
-          image="/fsf.png"
+          image="/fsf.jpg"
           status="On Hold"
           buttonText="Visit Website"
           buttonUrl="https://fullstackfundamentals.com"
@@ -170,7 +170,7 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }
           status="Archived"
           buttonText="Visit Website"
           buttonUrl="https://uselifeboat.com"
-          image="https://user-images.githubusercontent.com/848147/32585014-ea2a74b2-c4c0-11e7-8563-9bd4800590ff.png"
+          image="/lifeboat.jpg"
         >
           Docker Compose is a command-line tool which can feel out of reach for beginners. I built a graphical user
           interface for it and called it Lifeboat.
@@ -233,7 +233,7 @@ function Project({ title, image, children, status, buttonUrl, buttonText, flippe
         <div className="md:w-1/2  md:px-4">
           <img
             loading="lazy"
-            className="shadow-lg"
+            className="shadow-xl"
             src={
               image ||
               'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2850&amp;q=80'
