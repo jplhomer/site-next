@@ -36,6 +36,7 @@
     "front-matter": "^3.2.1",
     "heroicons": "github:refactoringui/heroicons",
     "next": "9.4.1",
+    "next-seo": "^4.5.0",
     "next-svgr": "^0.0.2",
     "postcss-nesting": "^7.0.1",
     "react": "16.13.1",

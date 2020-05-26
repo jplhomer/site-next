@@ -1,5 +1,5 @@
 import { getPosts, getPost, getFilenameFromSlug } from '@/lib/posts';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -35,9 +35,7 @@ export async function getStaticProps({ params }) {
 export default function Post({ post }) {
   return (
     <div className="max-w-3xl p-4 mx-auto prose">
-      <Head>
-        <title>{post.title}</title>
-      </Head>
+      <NextSeo title={post.title} />
       <h1 className="mb-4">{post.title}</h1>
       <div className="mb-8">
         <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>

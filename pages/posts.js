@@ -1,6 +1,7 @@
 import Wrapper from '@/components/Wrapper';
 import { getPosts } from '@/lib/posts';
 import Link from 'next/link';
+import { NextSeo } from 'next-seo';
 
 export async function getStaticProps() {
   const posts = await getPosts();
@@ -15,6 +16,7 @@ export async function getStaticProps() {
 export default function Posts({ posts }) {
   return (
     <Wrapper>
+      <NextSeo title="Posts" />
       <h1 className="text-4xl font-extrabold mb-8">Posts</h1>
 
       <ul>

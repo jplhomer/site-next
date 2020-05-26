@@ -1,7 +1,7 @@
 import Wrapper from './Wrapper';
 import Link from 'next/link';
 import { PER_PAGE } from '@/pages/archives';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 export default function ArchivePosts({ posts, total, page = 1 }) {
   const hasNextPage = Math.ceil(total / PER_PAGE) > page;
@@ -9,11 +9,12 @@ export default function ArchivePosts({ posts, total, page = 1 }) {
 
   return (
     <Wrapper>
-      <Head>
-        <title>Archives - Page {page}</title>
-      </Head>
+      <NextSeo title={`Archives - Page ${page}`} />
 
-      <h1 className="text-4xl font-extrabold mb-8">Archives</h1>
+      <h1 className="text-4xl font-extrabold mb-8">
+        Archives
+        {page > 1 && ` - Page ${page}`}
+      </h1>
 
       {page == 1 && (
         <p className="text-sm text-gray-600 mb-8">

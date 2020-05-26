@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { getArchivePosts, getArchivePost } from '@/lib/archive-posts';
 
 export async function getStaticProps({ params }) {
@@ -31,9 +31,7 @@ export default function ArchivePost({ post }) {
 
   return (
     <div>
-      <Head>
-        <title>{post.title}</title>
-      </Head>
+      <NextSeo title={post.title} />
       <div className="max-w-3xl p-4 mx-auto prose">
         <h1 className="mb-4">{post.title}</h1>
         <div className="mb-8">

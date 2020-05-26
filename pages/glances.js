@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import Loading from '@/components/Loading';
 import { fetcher } from '@/lib/fetcher';
 import { useKeyboard } from '@/lib/use-keyboard';
+import { NextSeo } from 'next-seo';
 
 Modal.setAppElement('#__next');
 
@@ -37,6 +38,7 @@ export default function Glances() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
+      <NextSeo title="Glances" />
       <Heading className="mb-2">Glances</Heading>
 
       <p className="text-sm text-gray-600 mb-8">Glances give you a peek into my life and the things I enjoy.</p>

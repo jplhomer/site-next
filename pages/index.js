@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import Link from 'next/link';
+import { NextSeo } from 'next-seo';
 
 import { getArchivePosts } from '@/lib/archive-posts';
 import { getRafterPosts } from '@/lib/rafter-posts';
@@ -29,10 +29,7 @@ export async function getStaticProps() {
 export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts }) {
   return (
     <div className="mt-8">
-      <Head>
-        <title>Josh Larson</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo title="Josh Larson - Software Engineer, Dad, Husband, Creator" />
       <div className="max-w-3xl mx-auto mb-8 p-4">
         <div className="mb-8">
           <h1 className="text-4xl font-black mb-4">I'm Josh Larson. Nice to meet you!</h1>
