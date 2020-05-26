@@ -16,7 +16,7 @@ export default function Glance({ glance, className }) {
       </div>
       <div className="md:w-1/3 flex-shrink-0 p-4 bg-white">
         <article className="flex flex-col justify-between h-full">
-          <div className="font-medium mb-2" dangerouslySetInnerHTML={{ __html: glance.body }}></div>
+          <div className="mb-2" dangerouslySetInnerHTML={{ __html: glance.body }}></div>
 
           <footer>
             <GlanceLikes glance={glance} />
