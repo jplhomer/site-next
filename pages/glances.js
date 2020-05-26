@@ -8,6 +8,8 @@ import Loading from '@/components/Loading';
 import { fetcher } from '@/lib/fetcher';
 import { useKeyboard } from '@/lib/use-keyboard';
 import { NextSeo } from 'next-seo';
+import styles from '@/css/glances.module.css';
+import GlancePreview from '@/components/GlancePreview';
 
 Modal.setAppElement('#__next');
 
@@ -46,7 +48,7 @@ export default function Glances() {
       <div className="grid grid-cols-3 mt-4 gap-6">
         {glances.map((glance) => (
           <Link key={glance.slug} href={`/glances?glanceSlug=${glance.slug}`} as={`/glances/${glance.slug}`}>
-            <a>
+            <a className={styles['glance-preview']}>
               <GlancePreview glance={glance} />
             </a>
           </Link>
@@ -80,30 +82,4 @@ export default function Glances() {
       </Modal>
     </div>
   );
-}
-
-function GlancePreview({ glance }) {
-  let image = glance.image;
-
-  if (glance.video) {
-    image = getImageFromVideoUrl(glance.video);
-  }
-
-  return (
-    <div className="pt-full h-0 relative overflow-hidden">
-      <img
-        src={glance.image || image}
-        alt="Preview of Glance"
-        loading="lazy"
-        className="max-w-none absolute w-full h-full inset-0 object-cover object-center"
-      />
-    </div>
-  );
-}
-
-function getImageFromVideoUrl(url) {
-  if (url.includes('youtube.com')) {
-    const id = new URL(url).searchParams.get('v');
-    return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
-  }
 }

@@ -5,12 +5,13 @@ import { mergeClasses } from '@/lib/utils';
 import { useHearts } from '@/lib/use-hearts';
 import { useFirestore } from '@/lib/use-firebase';
 import { useRef, useEffect } from 'react';
+import styles from '@/css/glances.module.css';
 
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
   return (
-    <div className={mergeClasses('glance md:flex', className)}>
+    <div className={mergeClasses('glance md:flex', styles.glance, className)}>
       <div className="flex-grow-0 flex items-center justify-center bg-black">
         <GlanceMedia glance={glance} />
       </div>
