@@ -55,4 +55,8 @@ html {
   }
 }
 
+.glance iframe {
+  max-width: 100%;
+}
+
 @tailwind utilities;

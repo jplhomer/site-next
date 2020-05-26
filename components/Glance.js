@@ -10,7 +10,7 @@ export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
   return (
-    <div className={mergeClasses('md:flex', className)}>
+    <div className={mergeClasses('glance md:flex', className)}>
       <div className="flex-grow-0 flex items-center justify-center bg-black">
         <GlanceMedia glance={glance} />
       </div>
