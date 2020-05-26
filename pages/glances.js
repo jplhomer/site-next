@@ -81,14 +81,27 @@ export default function Glances() {
 }
 
 function GlancePreview({ glance }) {
+  let image = glance.image;
+
+  if (glance.video) {
+    image = getImageFromVideoUrl(glance.video);
+  }
+
   return (
     <div className="pt-full h-0 relative overflow-hidden">
       <img
-        src={glance.image}
+        src={glance.image || image}
         alt="Preview of Glance"
         loading="lazy"
         className="max-w-none absolute w-full h-full inset-0 object-cover object-center"
       />
     </div>
   );
+}
+
+function getImageFromVideoUrl(url) {
+  if (url.includes('youtube.com')) {
+    const id = new URL(url).searchParams.get('v');
+    return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+  }
 }
