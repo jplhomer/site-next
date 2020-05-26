@@ -30,7 +30,10 @@ export async function getStaticProps({ params }) {
 export default function GlanceView({ glance }) {
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <NextSeo title={`Glance from ${new Date(glance.date).toDateString()}`} />
+      <NextSeo
+        title={`Glance from ${new Date(glance.date).toDateString()}`}
+        openGraph={{ images: [{ url: glance.image }] }}
+      />
       <Glance className="shadow mx-auto" glance={glance} />
     </div>
   );
