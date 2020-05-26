@@ -39,9 +39,20 @@ function GlanceMedia({ glance }) {
 }
 
 function GlanceVideoMedia({ glance }) {
+  if (/youtube/.test(glance.video)) {
+    return <YouTubeVideo glance={glance} />;
+  }
+
+  if (/vimeo/.test(glance.video)) {
+    return <VimeoVideo glance={glance} />;
+  }
+
+  return <p className="text-white">Player not yet supported.</p>;
+}
+
+function YouTubeVideo({ glance }) {
   const player = useRef();
 
-  // TODO: Support other things than YouTube
   useEffect(() => {
     let youtube;
 
@@ -79,6 +90,21 @@ function GlanceVideoMedia({ glance }) {
   });
 
   return <div ref={player} />;
+}
+
+function VimeoVideo({ glance }) {
+  const videoId = new URL(glance.video).pathname.replace(/^\//, '');
+  return (
+    <iframe
+      src={`https://player.vimeo.com/video/${videoId}`}
+      width="500"
+      height="400"
+      frameBorder="0"
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowFullScreen
+    ></iframe>
+  );
 }
 
 function GlanceActions({ glance }) {
