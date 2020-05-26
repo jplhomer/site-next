@@ -61,7 +61,10 @@ function GlanceVideoMedia({ glance }) {
       });
     }
 
-    window.onYouTubeIframeAPIReady = () => launchPlayer();
+    window.youTubeLaunchQueue = window.youTubeLaunchQueue || [];
+    window.youTubeLaunchQueue.push(() => launchPlayer());
+
+    window.onYouTubeIframeAPIReady = () => window.youTubeLaunchQueue.forEach((q) => q.call());
 
     if (typeof YT !== 'undefined') {
       launchPlayer();
