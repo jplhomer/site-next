@@ -3,49 +3,13 @@ import HeartOutline from 'heroicons/outline/heart.svg';
 import HeartSolid from 'heroicons/solid/heart.svg';
 import { mergeClasses } from '@/lib/utils';
 import { useHearts } from '@/lib/use-hearts';
-import { useState, useEffect } from 'react';
-import useSWR from 'swr';
-import { fetcher } from '@/lib/fetcher';
+import { useFirestore } from '@/lib/use-firebase';
 
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
-  const [isLiked, toggleLiked] = useHearts(glance.slug);
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => setIsClient(true));
-  const { data: totalLikes, mutate } = useSWR(`/api/glance-likes?slug=${glance.slug}`, fetcher);
-
-  /**
-   * Skip SSR, as we run into issues with localStorage-based like status below.
-   */
-  if (!isClient) return <Loading />;
-
-  async function toggleLike(shouldDecrement) {
-    let body = {
-      slug: glance.slug,
-    };
-
-    if (shouldDecrement) {
-      body.decrement = true;
-    }
-
-    const res = await fetch('/api/toggle-glance-like', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-
-    return await res.json();
-  }
-
-  function handleLikeClick() {
-    const shouldDecrement = isLiked;
-
-    toggleLiked();
-    mutate(toggleLike(shouldDecrement));
-  }
+  const [totalLikes, likesLoading, setTotalLikes] = useFirestore('glance-likes', glance.slug);
+  const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
 
   return (
     <div className={mergeClasses('md:flex', className)}>
@@ -57,16 +21,18 @@ export default function Glance({ glance, className }) {
           <div className="font-medium mb-2" dangerouslySetInnerHTML={{ __html: glance.body }}></div>
 
           <footer>
-            <div className="flex items-center mb-2 text-sm">
-              <button onClick={handleLikeClick}>
-                {isLiked ? (
-                  <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
-                ) : (
-                  <HeartOutline className="w-7 h-7 mr-2" />
-                )}
-              </button>
-              <span>{totalLikes === undefined ? '...' : `Liked ${totalLikes.total} times`}</span>
-            </div>
+            {!likesLoading && (
+              <div className="flex items-center mb-2 text-sm">
+                <button onClick={toggleLiked}>
+                  {isLiked ? (
+                    <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
+                  ) : (
+                    <HeartOutline className="w-7 h-7 mr-2" />
+                  )}
+                </button>
+                <span>Liked {totalLikes || 0} times</span>
+              </div>
+            )}
             <time className="text-xs text-gray-800" dateTime={glance.date}>
               {new Date(glance.date).toLocaleString()}
             </time>
