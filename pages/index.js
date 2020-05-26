@@ -273,19 +273,19 @@ function ProjectBadge({ children }) {
 
   function getColor() {
     if (/progress/i.test(children)) {
-      return 'yellow';
+      return 'bg-yellow-100 text-yellow-800';
     }
 
     if (/launch/i.test(children)) {
-      return 'green';
+      return 'bg-green-100 text-green-800';
     }
 
-    return 'gray';
+    return 'bg-gray-100 text-gray-800';
   }
 
   return (
     <span
-      className={`inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-${color}-100 text-${color}-800 m-auto ml-0`}
+      className={`inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 ${color} m-auto ml-0`}
     >
       {children}
     </span>
