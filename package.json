@@ -35,6 +35,7 @@
     "firebase": "^7.14.5",
     "front-matter": "^3.2.1",
     "heroicons": "github:refactoringui/heroicons",
+    "marked": "^1.1.0",
     "next": "9.4.1",
     "next-seo": "^4.5.0",
     "next-svgr": "^0.0.2",
