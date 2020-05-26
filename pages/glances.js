@@ -72,6 +72,7 @@ export default function Glances() {
             bottom: 'auto',
             padding: 0,
             border: 'none',
+            maxWidth: '815px',
           },
         }}
       >

@@ -11,8 +11,8 @@ export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
   return (
-    <div className={mergeClasses('glance md:flex', styles.glance, className)}>
-      <div className="flex-grow-0 flex items-center justify-center bg-black">
+    <div className={mergeClasses('md:flex w-full', styles.glance, className)}>
+      <div className="md:w-2/3 flex-grow-0 flex items-center justify-center bg-black">
         <GlanceMedia glance={glance} />
       </div>
       <div className="md:w-1/3 flex-shrink-0 p-4 bg-white">
