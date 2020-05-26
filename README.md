@@ -21,5 +21,5 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 - Barrett and Josh Piano
 - Misc Barrett photos
 - Singing Beta songs
-- Old reporter reeel
+- Old reporter reel
 - Marching band photos/videos
