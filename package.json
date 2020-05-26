@@ -32,6 +32,7 @@
     "@next/mdx": "^9.4.2",
     "@tailwindcss/ui": "^0.3.0",
     "autoprefixer": "^9.8.0",
+    "firebase-admin": "^8.12.1",
     "front-matter": "^3.2.1",
     "heroicons": "github:refactoringui/heroicons",
     "next": "9.4.1",

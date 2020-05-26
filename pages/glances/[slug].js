@@ -28,7 +28,7 @@ export async function getStaticProps({ params }) {
 
 export default function GlanceView({ glance }) {
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto p-4">
       <Glance className="shadow mx-auto" glance={glance} />
     </div>
   );

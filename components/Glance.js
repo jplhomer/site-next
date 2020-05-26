@@ -4,6 +4,8 @@ import HeartSolid from 'heroicons/solid/heart.svg';
 import { mergeClasses } from '@/lib/utils';
 import { useHearts } from '@/lib/use-hearts';
 import { useState, useEffect } from 'react';
+import useSWR from 'swr';
+import { fetcher } from '@/lib/fetcher';
 
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
@@ -11,6 +13,7 @@ export default function Glance({ glance, className }) {
   const [isLiked, toggleLiked] = useHearts(glance.slug);
   const [isClient, setIsClient] = useState(false);
   useEffect(() => setIsClient(true));
+  const { data: totalLikes } = useSWR(`/api/glance-likes?slug=${glance.slug}`, fetcher);
 
   /**
    * Skip SSR, as we run into issues with localStorage-based like status below.
@@ -35,7 +38,7 @@ export default function Glance({ glance, className }) {
                   <HeartOutline className="w-7 h-7 mr-2" />
                 )}
               </button>
-              <span>Liked {glance.totalLikes} times</span>
+              <span>{totalLikes === undefined ? '...' : `Liked ${totalLikes.total} times`}</span>
             </div>
             <time className="text-xs text-gray-800" dateTime={glance.date}>
               {new Date(glance.date).toLocaleString()}
