@@ -3,21 +3,28 @@ import Modal from 'react-modal';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Glance from '@/components/Glance';
-import useSWR from 'swr';
-import Loading from '@/components/Loading';
-import { fetcher } from '@/lib/fetcher';
 import { useKeyboard } from '@/lib/use-keyboard';
 import { NextSeo } from 'next-seo';
 import styles from '@/css/glances.module.css';
 import GlancePreview from '@/components/GlancePreview';
 import { useEffect } from 'react';
 import { useMedia } from '@/lib/use-media';
+import { getGlances } from '@/lib/glances';
 
 Modal.setAppElement('#__next');
 
-export default function Glances() {
+export async function getStaticProps() {
+  const glances = await getGlances();
+
+  return {
+    props: {
+      glances,
+    },
+  };
+}
+
+export default function Glances({ glances }) {
   const router = useRouter();
-  const { data: glances, error } = useSWR('/api/glances', fetcher);
 
   const isModalOpen = Boolean(router.query.glanceSlug);
   const isScrollActive = Boolean(router.query.glanceSlugScroll);
@@ -58,11 +65,8 @@ export default function Glances() {
 
     const newSlug = glances[index + direction].slug;
 
-    router.push(`/glances?glanceSlug=${newSlug}`, `/glances/${newSlug}`);
+    router.push(`/glances?glanceSlug=${newSlug}`, `/glances/${newSlug}`, { shallow: true });
   }
-
-  if (error) return <p>{error.message}</p>;
-  if (!glances) return <Loading />;
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -82,7 +86,12 @@ export default function Glances() {
       ) : (
         <div className="grid grid-cols-3 mt-4 gap-1 md:gap-6 -mx-4 md:mx-0">
           {glances.map((glance) => (
-            <Link key={glance.slug} href={`/glances?${glanceLinkParam}=${glance.slug}`} as={`/glances/${glance.slug}`}>
+            <Link
+              key={glance.slug}
+              href={`/glances?${glanceLinkParam}=${glance.slug}`}
+              as={`/glances/${glance.slug}`}
+              shallow={true}
+            >
               <a className={styles['glance-preview']}>
                 <GlancePreview glance={glance} />
               </a>
