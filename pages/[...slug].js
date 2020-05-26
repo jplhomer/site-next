@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { getArchivePosts, getArchivePost } from '@/lib/archive-posts';
+import Loading from '@/components/Loading';
 
 export async function getStaticProps({ params }) {
   const post = await getArchivePost(params);
@@ -11,7 +12,8 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const { posts } = await getArchivePosts();
+  // Only do the first ten to speed up build times
+  const { posts } = await getArchivePosts(10);
   const paths = posts.map((post) => ({
     params: {
       slug: post.nextSlug,
@@ -20,22 +22,30 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
 export default function ArchivePost({ post }) {
   const router = useRouter();
 
-  if (router.isFallback) return <p>Loading...</p>;
+  if (router.isFallback) return <Loading />;
+
+  const openGraphImages = post.thumbnail ? [{ url: post.thumbnail }] : [];
 
   return (
     <div>
-      <Head>
-        <title>{post.title}</title>
-      </Head>
+      <NextSeo
+        title={post.title}
+        openGraph={{
+          images: openGraphImages,
+        }}
+      />
       <div className="max-w-3xl p-4 mx-auto prose">
         <h1 className="mb-4">{post.title}</h1>
+        {post.dek && (
+          <div className="text-xl mb-4 text-gray-600 italic" dangerouslySetInnerHTML={{ __html: post.dek }} />
+        )}
         <div className="mb-8">
           <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>
         </div>

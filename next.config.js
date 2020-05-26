@@ -1,4 +1,6 @@
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
 });
-module.exports = withMDX();
+const withSvgr = require('next-svgr');
+
+module.exports = withSvgr(withMDX());

@@ -11,6 +11,7 @@ export default function Layout({ children }) {
         <nav>
           <NavItem href="/posts">Posts</NavItem>
           <NavItem href="/archives">Archives</NavItem>
+          <NavItem href="/glances">Glances</NavItem>
         </nav>
       </header>
       <main>{children}</main>

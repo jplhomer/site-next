@@ -50,8 +50,9 @@ html {
   & iframe,
   & video,
   & img,
-  & figure {
-    @apply max-w-full;
+  & figure,
+  & .wp-caption {
+    @apply max-w-full mt-4;
   }
 }
 
