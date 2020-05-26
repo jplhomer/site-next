@@ -97,8 +97,8 @@ function VimeoVideo({ glance }) {
   return (
     <iframe
       src={`https://player.vimeo.com/video/${videoId}`}
-      width="500"
-      height="400"
+      width="640"
+      height="390"
       frameBorder="0"
       webkitallowfullscreen
       mozallowfullscreen
