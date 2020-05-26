@@ -32,7 +32,7 @@ export default function Glances() {
     router.push(`/glances?glanceSlug=${newSlug}`, `/glances/${newSlug}`);
   }
 
-  if (error) return <p>{error.getMessage()}</p>;
+  if (error) return <p>{error.message}</p>;
   if (!glances) return <Loading />;
 
   return (
@@ -45,7 +45,7 @@ export default function Glances() {
         {glances.map((glance) => (
           <Link key={glance.slug} href={`/glances?glanceSlug=${glance.slug}`} as={`/glances/${glance.slug}`}>
             <a>
-              <img src={glance.image} alt="Preview of Glance" loading="lazy" />
+              <GlancePreview glance={glance} />
             </a>
           </Link>
         ))}
@@ -76,6 +76,19 @@ export default function Glances() {
           glance={glances.find((glance) => glance.slug === router.query.glanceSlug)}
         />
       </Modal>
+    </div>
+  );
+}
+
+function GlancePreview({ glance }) {
+  return (
+    <div className="pt-full h-0 relative overflow-hidden">
+      <img
+        src={glance.image}
+        alt="Preview of Glance"
+        loading="lazy"
+        className="max-w-none absolute w-full h-full inset-0 object-cover object-center"
+      />
     </div>
   );
 }
