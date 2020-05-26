@@ -2,6 +2,7 @@ import Wrapper from './Wrapper';
 import Link from 'next/link';
 import { PER_PAGE } from '@/pages/archives';
 import { NextSeo } from 'next-seo';
+import ExternalLink from 'heroicons/outline/external-link.svg';
 
 export default function ArchivePosts({ posts, total, page = 1 }) {
   const hasNextPage = Math.ceil(total / PER_PAGE) > page;
@@ -29,14 +30,17 @@ export default function ArchivePosts({ posts, total, page = 1 }) {
         {posts.map((post) => {
           return (
             <li className="mb-2" key={post.title}>
-              <Link href="/[...slug]" as={`/${post.nextSlug.join('/')}`}>
-                <a>
-                  <div className="block text-lg mb-1">{post.title}</div>
-                  <time className="text-sm text-gray-600" dateTime={post.date}>
-                    {new Date(post.date).toLocaleDateString()}
-                  </time>
+              {post.externalUrl ? (
+                <a href={post.externalUrl}>
+                  <PostPreview post={post} />
                 </a>
-              </Link>
+              ) : (
+                <Link href="/[...slug]" as={`/${post.nextSlug.join('/')}`}>
+                  <a>
+                    <PostPreview post={post} />
+                  </a>
+                </Link>
+              )}
             </li>
           );
         })}
@@ -59,5 +63,26 @@ export default function ArchivePosts({ posts, total, page = 1 }) {
         </div>
       </nav>
     </Wrapper>
+  );
+}
+
+function PostPreview({ post }) {
+  const isExternal = Boolean(post.externalUrl);
+
+  return (
+    <>
+      <div className="block text-lg mb-1">
+        <span className="align-middle">{post.title}</span>
+        {isExternal && (
+          <span className="text-gray-600">
+            <span className="text-xs ml-2">{new URL(post.externalUrl).host}</span>{' '}
+            <ExternalLink className="w-4 h-4 inline-block" />
+          </span>
+        )}
+      </div>
+      <time className="text-sm text-gray-600" dateTime={post.date}>
+        {new Date(post.date).toLocaleDateString()}
+      </time>
+    </>
   );
 }
