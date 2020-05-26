@@ -82,6 +82,8 @@ function GlanceLikes({ glance }) {
   const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
 
   if (likesLoading) return <p>...</p>;
+  const likes = totalLikes || 0;
+  const label = likes === 1 ? 'time' : 'times';
 
   return (
     <div className="flex items-center mb-2 text-sm">
@@ -92,7 +94,9 @@ function GlanceLikes({ glance }) {
           <HeartOutline className="w-7 h-7 mr-2" />
         )}
       </button>
-      <span>Liked {totalLikes || 0} times</span>
+      <span>
+        Liked {likes} {label}
+      </span>
     </div>
   );
 }
