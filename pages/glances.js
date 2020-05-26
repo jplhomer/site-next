@@ -22,11 +22,20 @@ export default function Glances() {
   const isModalOpen = Boolean(router.query.glanceSlug);
   const isScrollActive = Boolean(router.query.glanceSlugScroll);
 
+  /**
+   * Use a media query to determine how to navigate the user to a Glance:
+   * - On mobile, display a "scroll list" similar to what Instagram does on mobile
+   * - On desktop, display a modal with the glance.
+   */
   const glanceLinkParam = useMedia(['(min-width: 768px)'], ['glanceSlug'], 'glanceSlugScroll');
 
   useKeyboard('ArrowRight', () => navigateGlance());
   useKeyboard('ArrowLeft', () => navigateGlance(-1));
 
+  /**
+   * When the user clicks on a mobile glance link, we listen for the query param
+   * they chose and scroll them to it.
+   */
   useEffect(() => {
     if (router.query.glanceSlugScroll) {
       const item = document.getElementById(router.query.glanceSlugScroll);
@@ -34,6 +43,11 @@ export default function Glances() {
     }
   }, [router.query.glanceSlugScroll]);
 
+  /**
+   * Allow the user to navigate the glances on desktop using arrow keys.
+   *
+   * @param {number} direction
+   */
   function navigateGlance(direction = 1) {
     if (!isModalOpen || !glances) return;
 
@@ -58,9 +72,9 @@ export default function Glances() {
       <p className="text-sm text-gray-600 mb-8">Glances give you a peek into my life and the things I enjoy.</p>
 
       {isScrollActive ? (
-        <ul className="-mx-4">
+        <ul className="-mx-4 bg-white">
           {glances.map((glance) => (
-            <li id={glance.slug} key={glance.slug} className="mb-8">
+            <li id={glance.slug} key={glance.slug} className="mb-4">
               <Glance glance={glance} />
             </li>
           ))}
