@@ -5,7 +5,6 @@ import Share from 'heroicons/outline/share.svg';
 import { mergeClasses } from '@/lib/utils';
 import { useHearts } from '@/lib/use-hearts';
 import { useFirestore } from '@/lib/use-firebase';
-import { useRef, useEffect } from 'react';
 import styles from '@/css/glances.module.css';
 
 export default function Glance({ glance, className }) {
@@ -70,47 +69,18 @@ function GlanceVideoMedia({ glance }) {
 }
 
 function YouTubeVideo({ glance }) {
-  const player = useRef();
+  const videoId = new URL(glance.video).searchParams.get('v');
 
-  useEffect(() => {
-    let youtube;
-
-    function insertScript() {
-      var tag = document.createElement('script');
-
-      tag.src = 'https://www.youtube.com/iframe_api';
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-
-    function launchPlayer() {
-      // eslint-disable-next-line no-undef
-      youtube = new YT.Player(player.current, {
-        height: '390',
-        width: '640',
-        iv_load_policy: 3,
-        playsinline: 1,
-        videoId: new URL(glance.video).searchParams.get('v'),
-      });
-    }
-
-    window.youTubeLaunchQueue = window.youTubeLaunchQueue || [];
-    window.youTubeLaunchQueue.push(() => launchPlayer());
-
-    window.onYouTubeIframeAPIReady = () => window.youTubeLaunchQueue.forEach((q) => q.call());
-
-    if (typeof YT !== 'undefined') {
-      launchPlayer();
-    } else {
-      insertScript();
-    }
-
-    return () => {
-      if (youtube) youtube.destroy();
-    };
-  });
-
-  return <div ref={player} />;
+  return (
+    <iframe
+      width="640"
+      height="390"
+      src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+      frameBorder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    ></iframe>
+  );
 }
 
 function VimeoVideo({ glance }) {
