@@ -11,20 +11,29 @@ import styles from '@/css/glances.module.css';
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
+  const [totalLikes, likesLoading, setTotalLikes] = useFirestore('glance-likes', glance.slug);
+  const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
+
   return (
     <div className={mergeClasses('md:flex w-full', styles.glance, className)}>
       <div
         className="md:w-2/3 flex-grow-0 flex items-center justify-center bg-black overflow-hidden"
         style={{ maxHeight: '95vh' }}
       >
-        <GlanceMedia glance={glance} />
+        <GlanceMedia glance={glance} onDoubleClick={toggleLiked} />
       </div>
       <div className="md:w-1/3 flex-shrink-0 p-4 bg-white">
         <article className="flex flex-col justify-between h-full">
           <div className="mb-2 prose text-sm" dangerouslySetInnerHTML={{ __html: glance.body }}></div>
 
           <footer>
-            <GlanceActions glance={glance} />
+            <GlanceActions
+              glance={glance}
+              totalLikes={totalLikes}
+              toggleLiked={toggleLiked}
+              likesLoading={likesLoading}
+              isLiked={isLiked}
+            />
             <time className="text-xs text-gray-800" dateTime={glance.date}>
               {new Date(glance.date).toLocaleDateString()}
             </time>
@@ -35,10 +44,17 @@ export default function Glance({ glance, className }) {
   );
 }
 
-function GlanceMedia({ glance }) {
+function GlanceMedia({ glance, onDoubleClick }) {
   if (glance.video) return <GlanceVideoMedia glance={glance} />;
 
-  return <img src={glance.image} alt={glance.alt || 'A Glance from Josh Larson'} loading="lazy" />;
+  return (
+    <img
+      src={glance.image}
+      alt={glance.alt || 'A Glance from Josh Larson'}
+      loading="lazy"
+      onDoubleClick={onDoubleClick}
+    />
+  );
 }
 
 function GlanceVideoMedia({ glance }) {
@@ -112,11 +128,9 @@ function VimeoVideo({ glance }) {
   );
 }
 
-function GlanceActions({ glance }) {
-  const [totalLikes, likesLoading, setTotalLikes] = useFirestore('glance-likes', glance.slug);
-  const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
-
+function GlanceActions({ glance, totalLikes, likesLoading, isLiked, toggleLiked }) {
   if (likesLoading) return <p>...</p>;
+
   const likes = totalLikes || 0;
   const label = likes === 1 ? 'time' : 'times';
 
