@@ -73,7 +73,7 @@ export default function Glances({ glances }) {
       <NextSeo title="Glances" />
       <Heading className="mb-2">Glances</Heading>
 
-      <p className="text-sm text-gray-600 mb-8">Glances give you a peek into my life and the things I enjoy.</p>
+      <p className="mb-8">Glances give you a peek into my life and the things I enjoy.</p>
 
       {isScrollActive ? (
         <ul className="-mx-4 bg-white">

@@ -18,7 +18,7 @@ export default function ArchivePosts({ posts, total, page = 1 }) {
       </h1>
 
       {page == 1 && (
-        <p className="text-sm text-gray-600 mb-8">
+        <p className="mb-8">
           Warning: Herein lies a collection of crusty old Internet web posts spanning all the way back from 2008 when I
           first launched my WordPress blog, self-hosted on a desktop computer running in my dorm room at Iowa State
           University. There are <b>{total} posts</b> in total. I like to think of it as a reflection of my self over the
