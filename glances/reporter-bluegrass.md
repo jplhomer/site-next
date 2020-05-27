@@ -1,5 +1,5 @@
 ---
-date: 05-16-2011
+date: 2011-05-16
 video: 'https://vimeo.com/23836396'
 ---
 
