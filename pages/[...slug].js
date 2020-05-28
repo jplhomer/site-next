@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { getArchivePosts, getArchivePost } from '@/lib/archive-posts';
 import Loading from '@/components/Loading';
+import ViewCounter from '@/components/ViewCounter';
 
 export async function getStaticProps({ params }) {
   const post = await getArchivePost(params);
@@ -46,8 +47,9 @@ export default function ArchivePost({ post }) {
         {post.dek && (
           <div className="text-xl mb-4 text-gray-600 italic" dangerouslySetInnerHTML={{ __html: post.dek }} />
         )}
-        <div className="mb-8">
+        <div className="mb-8 flex justify-between">
           <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>
+          <ViewCounter id={post.nextPath} shouldIncrement={true} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
       </div>

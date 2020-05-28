@@ -4,13 +4,13 @@ import HeartSolid from 'heroicons/solid/heart.svg';
 import Share from 'heroicons/outline/share.svg';
 import { mergeClasses } from '@/lib/utils';
 import { useHearts } from '@/lib/use-hearts';
-import { useFirestore } from '@/lib/use-firebase';
+import { useFirebase } from '@/lib/use-firebase';
 import styles from '@/css/glances.module.css';
 
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
-  const [totalLikes, likesLoading, setTotalLikes] = useFirestore('glance-likes', glance.slug);
+  const [totalLikes, likesLoading, setTotalLikes] = useFirebase('glance-likes', glance.slug);
   const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
 
   return (

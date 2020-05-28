@@ -13,7 +13,7 @@ export default function PostListItem({ post, href, as }) {
             <span className="align-middle">{post.title}</span>
             {isExternal && <ExternalMark url={post.externalUrl} />}
           </div>
-          {!isExternal ? <ViewCounter id={as} /> : <span></span>}
+          {!isExternal ? <ViewCounter id={post.nextPath} /> : <span></span>}
         </div>
         <div>
           <time className="text-sm text-gray-500 mr-2" dateTime={post.date}>

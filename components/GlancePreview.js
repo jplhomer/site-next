@@ -1,4 +1,4 @@
-import { useFirestore } from '@/lib/use-firebase';
+import { useFirebase } from '@/lib/use-firebase';
 import styles from '@/css/glances.module.css';
 import Heart from 'heroicons/solid/heart.svg';
 import Play from 'heroicons/solid/play.svg';
@@ -20,7 +20,7 @@ export default function GlancePreview({ glance }) {
 }
 
 function HeartsOverlay({ glance }) {
-  const [totalLikes, likesLoading] = useFirestore('glance-likes', glance.slug);
+  const [totalLikes, likesLoading] = useFirebase('glance-likes', glance.slug);
 
   return (
     <div className={`bg-black bg-opacity-50 absolute inset-0 w-full h-full flex ${styles.overlay}`}>
