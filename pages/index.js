@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
-import { getArchivePosts } from '@/lib/archive-posts';
 import { getRafterPosts } from '@/lib/rafter-posts';
 import { getBarkpassPosts } from '@/lib/barkpass-posts';
 import { getPosts } from '@/lib/posts';
@@ -10,10 +9,10 @@ import { getGlances } from '@/lib/glances';
 import Intro from '@/prose/intro.md';
 import GlancePreview from '@/components/GlancePreview';
 import styles from '@/css/glances.module.css';
+import PostListItem from '@/components/PostListItem';
 
 export async function getStaticProps() {
-  const [archivePosts, rafterPosts, barkpassPosts, posts, glances] = await Promise.all([
-    getArchivePosts(5),
+  const [rafterPosts, barkpassPosts, posts, glances] = await Promise.all([
     getRafterPosts(),
     getBarkpassPosts(),
     getPosts(),
@@ -22,7 +21,6 @@ export async function getStaticProps() {
 
   return {
     props: {
-      archivePosts: archivePosts.posts,
       rafterPosts,
       barkpassPosts,
       posts: posts.slice(0, 5),
@@ -31,12 +29,12 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts, glances }) {
+export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
   return (
     <div className="mt-8">
       <NextSeo title="Josh Larson - Software Engineer, Dad, Husband, Creator" />
-      <div className="max-w-3xl mx-auto mb-8 p-4">
-        <div className="mb-8">
+      <div className="max-w-3xl mx-auto mb-6 p-4">
+        <div className="mb-12">
           <h1 className="text-4xl font-black mb-4">I'm Josh Larson. Nice to meet you!</h1>
           <div className="prose text-lg font-medium leading-relaxed mb-4">
             <Intro />
@@ -44,81 +42,21 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts, 
         </div>
         <ul className="mb-4">
           {posts.map((post) => {
-            return (
-              <li className="mb-2" key={post.path}>
-                <Link href="/posts/[slug]" as={`/posts/${post.path.replace(/.mdx?/, '')}`}>
-                  <a>
-                    <div className="block text-lg mb-1">{post.title}</div>
-                    <time className="text-sm text-gray-600" dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString()}
-                    </time>
-                  </a>
-                </Link>
-              </li>
-            );
+            return <PostListItem key={post.title} post={post} href="/posts/[slug]" as={`/posts/${post.nextPath}`} />;
           })}
         </ul>
         <Link href="/posts">
-          <a className="text-sm text-gray-600 font-medium ">All Posts</a>
+          <a className="text-sm text-gray-600 font-medium">All Posts</a>
         </Link>
-      </div>
-      <div className="grid gap-4 lg:grid-cols-3 mb-8 mx-auto max-w-6xl p-4">
-        <PostList title="Inside Rafter" link="https://blog.rafter.app">
-          <ul>
-            {rafterPosts.map((post) => {
-              return (
-                <li className="mb-1" key={post.title}>
-                  <a className="block" href={post.url}>
-                    <div>{post.title}</div>
-                    <time className="text-sm text-gray-600" dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString()}
-                    </time>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </PostList>
-        <PostList title="Building Barkpass" link="https://building.barkpass.com">
-          <ul>
-            {barkpassPosts.map((post) => {
-              return (
-                <li className="mb-1" key={post.title}>
-                  <a className="block" href={post.url}>
-                    <div>{post.title}</div>
-                    <time className="text-sm text-gray-600" dateTime={post.date_published}>
-                      {new Date(post.date_published).toLocaleDateString()}
-                    </time>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </PostList>
-        <PostList title="Archive" link="/archives">
-          <ul>
-            {archivePosts.map((post) => {
-              return (
-                <li className="mb-1" key={post.id}>
-                  <Link href="/[...slug]" as={`/${post.nextSlug.join('/')}`}>
-                    <a className="block">
-                      <div>{post.title}</div>
-                      <time className="text-sm text-gray-600" dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString()}
-                      </time>
-                    </a>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </PostList>
+        <span className="mx-2">/</span>
+        <Link href="/archives">
+          <a className="text-sm text-gray-600 font-medium">Archives</a>
+        </Link>{' '}
+        <p className="mt-16 text-lg">
+          Here are some <strong>projects</strong> I've been building in my spare time:
+        </p>
       </div>
       <div>
-        <div className="max-w-5xl mx-auto mb-8 p-4">
-          <h2 className="font-bold text-2xl mb-4">Projects</h2>
-          <p>I like to build things in my spare time. Here are a few selections:</p>
-        </div>
         <Project
           title="Rafter"
           image="/rafter.jpg"
@@ -126,12 +64,28 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts, 
           buttonText="View on GitHub"
           buttonUrl="https://github.com/rafter-platform/rafter"
         >
-          Rafter is an open-source serverless deployment platform built on top of Google Cloud. It's a side project I
-          started building in 2020. I'm also writing about it on{' '}
-          <a className="underline" href="https://blog.rafter.app">
-            its own blog
-          </a>
-          .
+          <div className="mb-4">
+            Rafter is an open-source serverless deployment platform built on top of Google Cloud. It's a side project I
+            started building in 2020. I'm also writing about it on its own blog,{' '}
+            <a className="underline font-medium whitespace-no-wrap" href="https://blog.rafter.app">
+              Inside Rafter
+            </a>
+            :
+          </div>
+
+          <ul className="mb-4">
+            {rafterPosts.map((post) => (
+              <li className="mb-1 text-sm" key={post.title}>
+                <time className="text-gray-600 text-xs w-16 mr-2 inline-block" dateTime={post.date}>
+                  {new Date(post.date).toLocaleDateString()}
+                </time>
+
+                <a className="underline" href={post.url}>
+                  {post.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </Project>
         <Project
           title="Barkpass"
@@ -141,12 +95,27 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts, 
           buttonUrl="https://www.barkpass.com"
           flipped
         >
-          Launched in 2019, Barkpass is a pet licensing and dog park management software-as-a-service created by Bri and
-          me. We have one customer so far, but we're looking to expand soon. Be sure to{' '}
-          <a className="underline" href="https://building.barkpass.com">
-            check out the blog
-          </a>
-          .
+          <div className="mb-4">
+            Launched in 2019, Barkpass is a pet licensing and dog park management software-as-a-service created by Bri
+            and me. We have one customer so far, but we're looking to expand soon. Be sure to check out the blog,{' '}
+            <a className="font-medium underline" href="https://building.barkpass.com">
+              Building Barkpass
+            </a>
+            :
+          </div>
+          <ul className="mb-4">
+            {barkpassPosts.map((post) => (
+              <li className="mb-1 text-sm" key={post.title}>
+                <time className="text-gray-600 text-xs w-16 mr-2 inline-block" dateTime={post.date}>
+                  {new Date(post.date).toLocaleDateString()}
+                </time>
+
+                <a className="underline" href={post.url}>
+                  {post.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </Project>
         <Project
           title="Fresa"
@@ -204,41 +173,18 @@ export default function Home({ archivePosts, rafterPosts, barkpassPosts, posts, 
   );
 }
 
-function PostList({ title, children, link }) {
-  const internalLink = link.startsWith('/');
-
-  function getLink() {
-    if (internalLink) {
-      return (
-        <Link href={link}>
-          <a>{title}</a>
-        </Link>
-      );
-    }
-
-    return <a href={link}>{title}</a>;
-  }
-
-  return (
-    <div>
-      <h2 className="text-2xl font-bold mb-2">📝 {getLink()}</h2>
-      {children}
-    </div>
-  );
-}
-
 function Project({ title, image, children, status, buttonUrl, buttonText, flipped = false }) {
   return (
     <div className={`py-12 ${flipped ? 'bg-white' : ''}`}>
       <div className={`max-w-5xl mx-auto px-4 md:px-0 md:flex ${flipped ? 'flex-row-reverse' : ''}`}>
         <div className="mb-8 md:mb-0 md:w-1/2 md:px-4">
           <div className="flex">
-            <h2 className="inline-flex text-2xl tracking-tight leading-10 font-bold sm:leading-none mr-4">
+            <h2 className="inline-flex text-xl tracking-tight leading-10 font-bold sm:leading-none mr-4">
               <a href={buttonUrl}>{title}</a>
             </h2>
             <ProjectBadge>{status}</ProjectBadge>
           </div>
-          <p className="mt-3 mb-3 text-base sm:mt-5 md:mt-5 md:mb-5">{children}</p>
+          <div className="mt-3 mb-3 text-base sm:mt-5 md:mt-5 md:mb-5">{children}</div>
           <span className="inline-flex rounded-md shadow-sm">
             <span className="inline-flex rounded-md shadow-sm">
               <a
