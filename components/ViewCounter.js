@@ -8,7 +8,6 @@ export default function ViewCounter({ id, className, shouldIncrement = false }) 
 
   useEffect(() => {
     if (!loading && shouldIncrement && !incremented) {
-      console.log(`setting views to ${views + 1}`);
       setViews(views + 1);
       setIncremented(true);
     }
