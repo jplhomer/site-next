@@ -47,6 +47,8 @@
     "rss": "^1.2.2",
     "swr": "^0.2.2",
     "tailwindcss": "^1.4.6",
+    "tailwindcss-dark-mode": "^1.1.4",
+    "use-dark-mode": "^2.3.1",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {

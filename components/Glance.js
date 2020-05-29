@@ -21,7 +21,7 @@ export default function Glance({ glance, className }) {
       >
         <GlanceMedia glance={glance} onDoubleClick={toggleLiked} />
       </div>
-      <div className="md:w-1/3 flex-shrink-0 p-4 bg-white">
+      <div className="md:w-1/3 flex-shrink-0 p-4 bg-white dark:bg-gray-800">
         <article className="flex flex-col justify-between h-full">
           <div className="mb-2 prose text-sm" dangerouslySetInnerHTML={{ __html: glance.body }}></div>
 
@@ -33,7 +33,7 @@ export default function Glance({ glance, className }) {
               likesLoading={likesLoading}
               isLiked={isLiked}
             />
-            <time className="text-xs text-gray-800" dateTime={glance.date}>
+            <time className="text-xs text-gray-800 dark:text-gray-200" dateTime={glance.date}>
               {new Date(glance.date).toLocaleDateString()}
             </time>
           </footer>
@@ -128,16 +128,16 @@ function GlanceActions({ glance, totalLikes, likesLoading, isLiked, toggleLiked 
           {isLiked ? (
             <HeartSolid className="w-7 h-7 mr-2 fill-current text-red-600" />
           ) : (
-            <HeartOutline className="w-7 h-7 mr-2" />
+            <HeartOutline className="w-7 h-7 mr-2 dark:text-white" />
           )}
         </button>
         {canShare && (
           <button onClick={share}>
-            <Share className="w-7 h-7 mr-2" />
+            <Share className="w-7 h-7 mr-2 dark:text-white" />
           </button>
         )}
       </div>
-      <p>
+      <p className="dark:text-gray-100">
         Liked {Number(likes).toLocaleString()} {label}
       </p>
     </div>

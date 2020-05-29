@@ -56,4 +56,18 @@ html {
   }
 }
 
+.dark-mode .prose {
+  @apply text-gray-200;
+
+  & h1 {
+    @apply text-gray-200;
+  }
+  & h2 {
+    @apply text-gray-200;
+  }
+  & a {
+    @apply text-gray-200;
+  }
+}
+
 @tailwind utilities;

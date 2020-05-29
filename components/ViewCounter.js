@@ -16,7 +16,7 @@ export default function ViewCounter({ id, className, shouldIncrement = false }) 
   const label = views === 1 ? 'view' : 'views';
 
   return (
-    <span className={mergeClasses('text-gray-600 text-sm', className)}>
+    <span className={mergeClasses('text-gray-600 dark:text-gray-200 text-sm', className)}>
       {loading ? '...' : `${Number(views).toLocaleString()} ${label}`}
     </span>
   );

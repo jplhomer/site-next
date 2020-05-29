@@ -46,11 +46,11 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           })}
         </ul>
         <Link href="/posts">
-          <a className="text-sm text-gray-600 font-medium">All Posts</a>
+          <a className="text-sm text-gray-600 dark:text-gray-300 font-medium">All Posts</a>
         </Link>
         <span className="mx-2">/</span>
         <Link href="/archives">
-          <a className="text-sm text-gray-600 font-medium">Archives</a>
+          <a className="text-sm text-gray-600 dark:text-gray-300 font-medium">Archives</a>
         </Link>{' '}
         <p className="mt-16 text-lg">
           Here are some <strong>projects</strong> I've been building in my spare time:
@@ -76,7 +76,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           <ul className="mb-4">
             {rafterPosts.map((post) => (
               <li className="mb-1 text-sm" key={post.title}>
-                <time className="text-gray-600 text-xs w-16 mr-2 inline-block" dateTime={post.date}>
+                <time className="text-gray-600 dark:text-gray-300 text-xs w-16 mr-2 inline-block" dateTime={post.date}>
                   {new Date(post.date).toLocaleDateString()}
                 </time>
 
@@ -106,7 +106,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           <ul className="mb-4">
             {barkpassPosts.map((post) => (
               <li className="mb-1 text-sm" key={post.title}>
-                <time className="text-gray-600 text-xs w-16 mr-2 inline-block" dateTime={post.date}>
+                <time className="text-gray-600 dark:text-gray-300 text-xs w-16 mr-2 inline-block" dateTime={post.date}>
                   {new Date(post.date).toLocaleDateString()}
                 </time>
 
@@ -175,7 +175,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
 
 function Project({ title, image, children, status, buttonUrl, buttonText, flipped = false }) {
   return (
-    <div className={`py-12 ${flipped ? 'bg-white' : ''}`}>
+    <div className={`py-12 ${flipped ? 'bg-white dark:bg-gray-800' : ''}`}>
       <div className={`max-w-5xl mx-auto px-4 md:px-0 md:flex ${flipped ? 'flex-row-reverse' : ''}`}>
         <div className="mb-8 md:mb-0 md:w-1/2 md:px-4">
           <div className="flex">

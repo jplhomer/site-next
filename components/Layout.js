@@ -1,19 +1,10 @@
 import Link from 'next/link';
+import Header from './Header';
 
 export default function Layout({ children }) {
   return (
-    <div className="border-t-4 border-blue-800">
-      <header className="max-w-4xl mx-auto mb-4 flex items-center justify-between px-4 py-6">
-        <Link href="/">
-          <a className="font-bold text-lg">Josh Larson</a>
-        </Link>
-
-        <nav>
-          <NavItem href="/about">About</NavItem>
-          <NavItem href="/posts">Posts</NavItem>
-          <NavItem href="/glances">Glances</NavItem>
-        </nav>
-      </header>
+    <div className="border-t-8 border-blue-800 dark:border-blue-300 dark:bg-gray-900 dark:text-gray-100">
+      <Header />
       <main>{children}</main>
       <footer className="mt-12 py-8 px-4 max-w-4xl mx-auto text-center">
         <img
@@ -53,13 +44,5 @@ export default function Layout({ children }) {
         </div>
       </footer>
     </div>
-  );
-}
-
-function NavItem({ href, children }) {
-  return (
-    <Link href={href}>
-      <a className="p-2 hover:bg-gray-200 ml-2 md:ml-4">{children}</a>
-    </Link>
   );
 }
