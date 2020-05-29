@@ -3,7 +3,7 @@ title: 'Day 4: Building a Gatsby plugin to automatically embed tweets'
 date: 2019-01-10
 ---
 
-Yesterday, I posted about [inspirational tech people I follow on Twitter](/003-inspirational-tech-people-on-twitter/).
+Yesterday, I posted about [inspirational tech people I follow on Twitter](/posts/003-inspirational-tech-people-on-twitter/).
 
 This was a fun article to write! I had some tweets to share, and I was hoping to use the new-ish third party plugin [`gatsby-remark-oembed`](https://github.com/raae/gatsby-remark-oembed) to embed them automatically — WordPress style.
 

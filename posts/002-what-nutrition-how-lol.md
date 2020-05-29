@@ -3,7 +3,7 @@ title: "Day 2: What's the deal with this Nutrition thing?"
 date: 2019-01-08
 ---
 
-In my [last post](/001-30-day-creativity-challenge), I mentioned that I was tying this blog into another challenge I'm doing.
+In my [last post](/posts/001-30-day-creativity-challenge), I mentioned that I was tying this blog into another challenge I'm doing.
 
 This is a New Years Nutrition challenge put on by my local Crossfit gym. Here's the breakdown:
 

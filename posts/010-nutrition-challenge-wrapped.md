@@ -3,7 +3,7 @@ title: "Day 10: That's a wrap on the nutrition challenge. How did it go?"
 date: 2019-03-04
 ---
 
-The [nutrition challenge that kicked this whole blog off](/002-what-nutrition-how-lol) wrapped in February after six weeks.
+The [nutrition challenge that kicked this whole blog off](/posts/002-what-nutrition-how-lol) wrapped in February after six weeks.
 
 ## So how did it go?
 
