@@ -9,8 +9,8 @@ export default function Layout({ children }) {
         </Link>
 
         <nav>
+          <NavItem href="/about">About</NavItem>
           <NavItem href="/posts">Posts</NavItem>
-          <NavItem href="/archives">Archives</NavItem>
           <NavItem href="/glances">Glances</NavItem>
         </nav>
       </header>
@@ -44,6 +44,9 @@ export default function Layout({ children }) {
           </a>
         </div>
         <div className="text-xs">
+          <Link href="/archives">
+            <a className="mx-2">Archives</a>
+          </Link>
           <a className="mx-2" href="/rss-feed.xml">
             RSS
           </a>
@@ -59,7 +62,7 @@ export default function Layout({ children }) {
 function NavItem({ href, children }) {
   return (
     <Link href={href}>
-      <a className="p-2 hover:bg-gray-200 ml-4">{children}</a>
+      <a className="p-2 hover:bg-gray-200 ml-2 md:ml-4">{children}</a>
     </Link>
   );
 }
