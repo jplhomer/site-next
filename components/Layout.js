@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function Layout({ children }) {
   return (
-    <div>
-      <header className="max-w-4xl mx-auto mb-12 flex items-center justify-between px-4 py-8">
+    <div className="border-t-4 border-blue-800">
+      <header className="max-w-4xl mx-auto mb-4 flex items-center justify-between px-4 py-6">
         <Link href="/">
           <a className="font-bold text-lg">Josh Larson</a>
         </Link>
@@ -26,7 +26,7 @@ export default function Layout({ children }) {
             <a className="font-bold text-lg">Josh Larson</a>
           </Link>
         </div>
-        <div>
+        <div className="mb-4">
           <a className="mx-2" href="https://twitter.com/jplhomer">
             Twitter
           </a>
@@ -38,6 +38,17 @@ export default function Layout({ children }) {
           </a>
           <a className="mx-2" href="https://instagram.com/jplhomer">
             Instagram
+          </a>
+          <a className="mx-2" href="mailto:jplhomer@gmail.com">
+            Email
+          </a>
+        </div>
+        <div className="text-xs">
+          <a className="mx-2" href="/rss-feed.xml">
+            RSS
+          </a>
+          <a className="mx-2" href="/feed.json">
+            JSON
           </a>
         </div>
       </footer>

@@ -2,6 +2,7 @@ import Wrapper from '@/components/Wrapper';
 import { getPosts } from '@/lib/posts';
 import { NextSeo } from 'next-seo';
 import PostListItem from '@/components/PostListItem';
+import Heading from '@/components/Heading';
 
 export async function getStaticProps() {
   const posts = await getPosts();
@@ -17,7 +18,7 @@ export default function Posts({ posts }) {
   return (
     <Wrapper>
       <NextSeo title="Posts" />
-      <h1 className="text-4xl font-extrabold mb-8">Posts</h1>
+      <Heading className="mb-8">Posts</Heading>
 
       <ul>
         {posts.map((post) => {

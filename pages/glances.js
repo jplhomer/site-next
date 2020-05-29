@@ -10,6 +10,7 @@ import GlancePreview from '@/components/GlancePreview';
 import { useEffect } from 'react';
 import { useMedia } from '@/lib/use-media';
 import { getGlances } from '@/lib/glances';
+import Wrapper from '@/components/Wrapper';
 
 Modal.setAppElement('#__next');
 
@@ -69,9 +70,9 @@ export default function Glances({ glances }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <Wrapper>
       <NextSeo title="Glances" />
-      <Heading className="mb-2">Glances</Heading>
+      <Heading className="mb-8">Glances</Heading>
 
       <p className="mb-8">Glances give you a peek into my life and the things I enjoy.</p>
 
@@ -126,6 +127,6 @@ export default function Glances({ glances }) {
           glance={glances.find((glance) => glance.slug === router.query.glanceSlug)}
         />
       </Modal>
-    </div>
+    </Wrapper>
   );
 }

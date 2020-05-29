@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { PER_PAGE } from '@/pages/archives';
 import { NextSeo } from 'next-seo';
 import PostListItem from './PostListItem';
+import Heading from './Heading';
 
 export default function ArchivePosts({ posts, total, page = 1 }) {
   const hasNextPage = Math.ceil(total / PER_PAGE) > page;
@@ -12,10 +13,10 @@ export default function ArchivePosts({ posts, total, page = 1 }) {
     <Wrapper>
       <NextSeo title={`Archives - Page ${page}`} />
 
-      <h1 className="text-4xl font-extrabold mb-8">
+      <Heading className="mb-8">
         Archives
         {page > 1 && ` - Page ${page}`}
-      </h1>
+      </Heading>
 
       {page == 1 && (
         <p className="mb-8">

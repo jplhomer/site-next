@@ -6,7 +6,7 @@ export default function PostListItem({ post, href, as }) {
   const isExternal = Boolean(post.externalUrl);
 
   return (
-    <li className="mb-3 -mx-2">
+    <li className="mb-3 -mx-2 -my-2">
       <PostLink post={post} href={href} as={as}>
         <div className="md:flex justify-between items-center">
           <div className="block text-lg">
