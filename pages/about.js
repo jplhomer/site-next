@@ -18,3 +18,5 @@ export default function About() {
     </Wrapper>
   );
 }
+
+About.favicon = '😊';

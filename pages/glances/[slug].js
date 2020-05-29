@@ -39,3 +39,5 @@ export default function GlanceView({ glance }) {
     </div>
   );
 }
+
+GlanceView.favicon = '📸';
