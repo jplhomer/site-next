@@ -130,3 +130,5 @@ export default function Glances({ glances }) {
     </Wrapper>
   );
 }
+
+Glances.favicon = '📸';

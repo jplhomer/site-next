@@ -235,3 +235,5 @@ function ProjectBadge({ children }) {
     </span>
   );
 }
+
+Home.favicon = '👋';
