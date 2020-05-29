@@ -50,9 +50,6 @@ export default function Layout({ children }) {
           <a className="mx-2" href="/rss-feed.xml">
             RSS
           </a>
-          <a className="mx-2" href="/feed.json">
-            JSON
-          </a>
         </div>
       </footer>
     </div>
