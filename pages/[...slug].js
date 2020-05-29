@@ -45,7 +45,10 @@ export default function ArchivePost({ post }) {
       <div className="max-w-3xl p-4 mx-auto prose">
         <h1 className="mb-4">{post.title}</h1>
         {post.dek && (
-          <div className="text-xl mb-4 text-gray-600 italic" dangerouslySetInnerHTML={{ __html: post.dek }} />
+          <div
+            className="text-xl mb-4 text-gray-600 dark:text-gray-300 italic"
+            dangerouslySetInnerHTML={{ __html: post.dek }}
+          />
         )}
         <div className="mb-8 flex justify-between">
           <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>
