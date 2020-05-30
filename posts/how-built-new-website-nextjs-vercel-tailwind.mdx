@@ -1,0 +1,247 @@
+---
+title: How I built my new website with Next.js, Vercel and TailwindCSS
+date: 2020-05-30
+description: I talk about building my new website with some fun new technologies.
+---
+
+For the first time in a decade, I finally updated my personal website. This is something I've wanted to do for a long time, but I've never gotten around to it. I think a lot of folks can say the same thing about their personal site 😊.
+
+The site is built with [Next.js](https://nextjs.org) and [TailwindCSS](https://tailwindcss.com), and it's hosted on [Vercel](https://vercel.com).
+
+## Goals
+
+I set some goals when beginning the redesign process:
+
+- Build something modern and fast, e.g. React or Next.js
+- Preserve my ~100 blog posts I had on my old WordPress site
+- Consolidate my newer creative blog posts
+- Share the writing I've been doing on other side project sites
+- Highlight the side projects I work on
+
+## Importing WordPress posts into Next.js
+
+_Sigh_. I started my old WordPress site in 2008 when I was a freshman in college. I literally bought a cheap desktop computer from Walmart, set it up in my dorm room because it had high-speed internet, asked the IT department for a static IP address, and hosted a WordPress blog from my computer.
+
+There's a lot of nostalgia there. I've written lots of posts over the past twelve years, and WordPress has served me well. I didn't want to give up the ghost quite yet and move to a completely-static site, so I made the decision to **preserve the site** and import the posts using the WordPress REST API.
+
+Luckily, Next's [static-site generation (SSG)](https://nextjs.org/docs/basic-features/data-fetching) APIs made this a breeze!
+
+I wanted to **keep the same URL structure** for SEO purposes:
+
+`/2018/06/i-created-an-educational-site-called-full-stack-fundamentals`
+
+This can be tricky, since a traditional dynamic route might look more like:
+
+`/posts/[slug]`
+
+However, Next provides [catch-all routes](https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes) to make this possible. First, I added a new page named `pages/[...slug].js`. This meant an incoming request with the above URL will be parsed by Next into an array of params:
+
+```js
+['2018', '06', 'i-created-an-educational-site-called-full-stack-fundamentals'];
+```
+
+In order to fetch the requested post, I leverage the `getStaticProps` method. WordPress allows you to query by `slug` alone without the leading date prefix. To do this, I grab the last item in the `params` array to send off to the JSON endpoint:
+
+```js
+// pages/[...slug].js
+
+export async function getStaticProps({ params }) {
+  const res = await fetch(`https://archive.jplhomer.org/wp-json/wp/v2/posts?slug=${params.slug[2]}`);
+  const posts = await res.json();
+  const post = posts[0];
+
+  return {
+    props: {
+      post,
+    },
+  };
+}
+```
+
+Additionally, I need to define a `getStaticPaths` method to tell Next how to pre-render the incoming static pages. In order to save some time during the build process, I choose to build only the **first ten** posts and then allow the remainder to be generated at runtime;
+
+```js
+// pages/[...slug].js
+
+export async function getStaticPaths() {
+  const { posts } = await getArchivePosts(10);
+  const paths = posts.map((post) => ({
+    params: {
+      slug: post.nextSlug,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+```
+
+Finally, I wanted to support **paginated archives** for my posts, since there are a bunch of them. To do that, I'm using a new dynamic route `pages/archives/[page].js`:
+
+```js
+// pages/archives/[pages].js
+
+export async function getStaticPaths() {
+  const paths = [1, 2, 3].map((page) => ({ params: { page } }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { page } = params;
+  const { posts, total } = await getArchivePosts(PER_PAGE, PER_PAGE * (Number(page) - 1));
+
+  return {
+    props: {
+      page: Number(page),
+      posts,
+      total,
+    },
+  };
+}
+```
+
+This creates **three initial archive pages** and allows the rest to be generated at runtime. I also pass the `page` and `total` props down to the component so I can render pagination UI.
+
+## Blogging with MDX
+
+Although I'm still importing my old WordPress posts via a JSON API, I want to write all future posts with [MDX](https://mdxjs.com/). It's like [Markdown](https://daringfireball.net/projects/markdown/syntax), only super-powered with React capabilities.
+
+In order to use this exactly how I wanted proved to be a bit of a challenge.
+
+On one hand, you have the [official Next.js MDX plugin](https://github.com/vercel/next.js/tree/master/packages/next-mdx). This is great if you want to simply import partials of Markdown:
+
+```jsx
+import Content from './content.mdx';
+
+export default function Page() {
+  return <Content />;
+}
+```
+
+The downside with this approach is that it's difficult to combine the power of `getStaticProps` with the MDX files, because the MDX compilation happens at the Webpack level.
+
+You can also enable top-level pages like `pages/content.mdx` if you want. The downside of this is that you're stuck with whatever global layout your app is providing, making it difficult to add custom layout features or pull in frontmatter metadata like `title`.
+
+_Also: I had no idea MDX didn't support frontmatter out of the box. Kind of a bummer that I needed to pull in a separate package for this._
+
+Apparently [next-mdx-enhanced](https://github.com/hashicorp/next-mdx-enhanced/) is a nice alternative, but I just couldn't get past a weird compile error 😞.
+
+So I rolled with my own strategy!
+
+For "dynamic" content like blog posts, I followed the ["Do It Yourself"](https://mdxjs.com/getting-started#do-it-yourself) guide on the MDX website and made it a simple `renderToMdx` server-side module on my site.
+
+Then, I used the `fs` package to iterate through the `/posts` directory in my project to parse the Markdown and MDX files. I used the `front-matter` package to strip out the frontmatter and provide it in the output.
+
+```js
+import { promises as fs } from 'fs';
+import path from 'path';
+import frontmatter from 'front-matter';
+import { renderMdx } from './mdx';
+
+const POSTS_PATH = path.resolve(process.cwd(), 'posts');
+
+export async function getPost(postPath, withBody = false) {
+  const content = await fs.readFile(path.resolve(POSTS_PATH, postPath), 'utf-8');
+  const { attributes, body } = frontmatter(content);
+  const bodyOutput = withBody ? await renderMdx(body) : '';
+
+  // Next.js complains if a legit Date object gets passed through
+  attributes.date = attributes.date.toString();
+
+  return {
+    path: postPath,
+    body: bodyOutput,
+    nextPath: postPath.replace(/.mdx?/, ''),
+    ...attributes,
+  };
+}
+
+export async function getPosts() {
+  const paths = await fs.readdir(POSTS_PATH);
+
+  const posts = await Promise.all(
+    paths.map(async (path) => {
+      return await getPost(path);
+    })
+  );
+
+  return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+export async function getFilenameFromSlug(slug) {
+  const paths = await fs.readdir(POSTS_PATH);
+
+  return paths.find((p) => new RegExp(slug).test(p));
+}
+```
+
+You can [view my `mdx.js` file](https://github.com/jplhomer/site/blob/master/lib/mdx.js) to see how `renderMdx` was implemented.
+
+::: warning Heads up!
+Since this method is totally separate from the Webpack build process, custom imports are not
+supported in the individual MDX files. They need to be passed into the <code>MDXProvider</code>'s components object to
+be accessible. This is kind of gross, and I try to work around it as much as possible.
+:::
+
+For "partials," I ended up using the official `@next/mdx` plugin for this 👍.
+
+## Generating A Sitemap and RSS Feed
+
+If you're optimizing for SEO, it's a good idea to maintain a `sitemap.xml` file to submit to search engine crawlers.
+
+Also, if you're writing a blog, people love to have RSS feeds like `rss-feed.xml` of your content so they can aggregate it into their readers.
+
+Turns out, both of these things are **manual** processes in Next.js.
+
+In a [discussion on GitHub](https://github.com/vercel/next.js/issues/9051#issuecomment-597078126) about this very topic, Lee Robinson proposes using `getServerSideProps` for generating a sitemap. Looks really slick!
+
+I ended up merging my MDX posts and WordPress posts together like this:
+
+```js
+import { getPosts } from '@/lib/posts';
+import { getArchivePosts } from '@/lib/archive-posts';
+
+export async function getServerSideProps({ res }) {
+  const posts = await getPosts();
+  const { posts: archivePosts } = await getArchivePosts();
+  const allPosts = posts.concat(archivePosts).filter((post) => !post.externalUrl);
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      ${allPosts
+        .map((post) => {
+          return `
+                  <url>
+                      <loc>${`https://jplhomer.org/${post.nextPath}`}</loc>
+                  </url>
+              `;
+        })
+        .join('')}
+  </urlset>
+`;
+
+  res.setHeader('Content-Type', 'text/xml');
+  res.write(sitemap);
+  res.end();
+}
+
+export default function Sitemap() {
+  return '';
+}
+```
+
+This **worked fine locally** but failed once I deployed to Vercel.
+
+Why? Because apparently **`getServerSideProps` and API routes do NOT have access to the filesystem** like `getStaticProps`. This is a bummer.
+
+I ended up borrowing [Lee's method](https://github.com/leerob/leerob.io/blob/master/scripts/generate-sitemap.js) of generating the sitemap manually during the Webpack build step.
+
+Big downsides of this include the fact that I can't import the same helper libraries I'm using in my Next pages because they are written in ES Modules, and the sitemap generator script is limited to CommonJS. 😭
+
+Here's my [finished script](https://github.com/jplhomer/site/blob/master/scripts/generate-sitemap.js) which creates both a sitemap and an RSS feed.
