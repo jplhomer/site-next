@@ -57,6 +57,10 @@ html {
     @apply mt-2;
   }
 
+  & hr {
+    @apply mt-4;
+  }
+
   & iframe,
   & video,
   & img,

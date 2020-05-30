@@ -1,5 +1,5 @@
 import '@/css/tailwind.css';
-import '@/css/prism-nord.css';
+import '@/css/prism.css';
 import Head from 'next/head';
 import Layout from '@/components/Layout';
 import SEO from '@/next-seo.config';
