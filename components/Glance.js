@@ -10,8 +10,9 @@ import styles from '@/css/glances.module.css';
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
-  const [totalLikes, likesLoading] = useFirebase('glance-likes', glance.slug);
+  const [totalLikes, likesLoading, setTotalLikes] = useFirebase('glance-likes', glance.slug);
   const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => {
+    setTotalLikes(() => totalLikes + delta);
     toggleGlanceLike({
       slug: glance.slug,
       decrement: delta === -1,
