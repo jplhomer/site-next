@@ -84,7 +84,7 @@ Finally, I wanted to support **paginated archives** for my posts, since there ar
 // pages/archives/[pages].js
 
 export async function getStaticPaths() {
-  const paths = [1, 2, 3].map((page) => ({ params: { page } }));
+  const paths = [1, 2, 3].map((page) => ({ params: { page: String(page) } }));
 
   return {
     paths,

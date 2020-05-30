@@ -32,7 +32,10 @@ export async function getStaticProps() {
 export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
   return (
     <div className="mt-8">
-      <NextSeo title="Josh Larson - Software Engineer, Dad, Husband, Creator" />
+      <NextSeo
+        title="Josh Larson - Software Engineer, Dad, Husband, Creator"
+        description="I'm a dad, a software engineer, and a creator. I'm passionate about solving hard problems and creating great experiences for other people."
+      />
       <div className="max-w-3xl mx-auto mb-6 p-4">
         <div className="mb-12">
           <h1 className="text-4xl font-black mb-4">I'm Josh Larson. Nice to meet you!</h1>
