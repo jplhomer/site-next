@@ -5,17 +5,8 @@ import { useRouter } from 'next/router';
 import Loading from '@/components/Loading';
 
 export async function getStaticPaths() {
-  const paths = [
-    {
-      params: { page: '1' },
-    },
-    {
-      params: { page: '2' },
-    },
-    {
-      params: { page: '3' },
-    },
-  ];
+  const paths = [1, 2, 3].map((page) => ({ params: { page } }));
+
   return {
     paths,
     fallback: true,
