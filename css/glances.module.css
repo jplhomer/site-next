@@ -6,6 +6,8 @@
   display: none;
 }
 
-.glance-preview:hover .overlay {
-  display: flex;
+@media (min-width: 768px) {
+  .glance-preview:hover .overlay {
+    display: flex;
+  }
 }
