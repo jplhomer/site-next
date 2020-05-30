@@ -38,6 +38,7 @@ export default function ArchivePost({ post }) {
     <div>
       <NextSeo
         title={post.title}
+        description={post.description}
         openGraph={{
           images: openGraphImages,
         }}
