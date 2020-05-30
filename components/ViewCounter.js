@@ -7,7 +7,9 @@ export default function ViewCounter({ id, className, shouldIncrement = false }) 
   const [incremented, setIncremented] = useState(false);
 
   useEffect(() => {
-    if (!loading && shouldIncrement && !incremented) {
+    const isLocalDev = window.location.href.includes('localhost');
+
+    if (!loading && shouldIncrement && !incremented && !isLocalDev) {
       setViews(views + 1);
       setIncremented(true);
     }
