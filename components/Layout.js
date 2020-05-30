@@ -41,6 +41,9 @@ export default function Layout({ children }) {
           <a className="mx-2" href="/rss-feed.xml">
             RSS
           </a>
+          <a className="mx-2" href="https://eepurl.com/c0jXpP">
+            Newsletter
+          </a>
         </div>
       </footer>
     </div>
