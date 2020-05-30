@@ -36,7 +36,7 @@ export async function getStaticProps({ params }) {
 export default function Post({ post }) {
   return (
     <div className="max-w-3xl p-4 mx-auto prose">
-      <NextSeo title={post.title} />
+      <NextSeo title={post.title} description={post.description ?? ''} />
       <h1 className="mb-4">{post.title}</h1>
       <div className="mb-8 flex justify-between">
         <time dateTime={new Date(post.date).toISOString()}>{new Date(post.date).toLocaleDateString()}</time>
