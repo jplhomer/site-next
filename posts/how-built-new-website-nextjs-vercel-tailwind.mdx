@@ -1,5 +1,5 @@
 ---
-title: How I built my new website with Next.js, Vercel and TailwindCSS
+title: Building my new website with Next.js, TailwindCSS, and Vercel
 date: 2020-05-30
 description: I talk about building my new website with some fun new technologies.
 ---
@@ -13,8 +13,8 @@ The site is built with [Next.js](https://nextjs.org) and [TailwindCSS](https://t
 I set some goals when beginning the redesign process:
 
 - Build something modern and fast, e.g. React or Next.js
-- Preserve my ~100 blog posts I had on my old WordPress site
-- Consolidate my newer creative blog posts
+- Preserve the ~100 blog posts I had on my old WordPress site
+- Consolidate my newer blog posts into a single place
 - Share the writing I've been doing on other side project sites
 - Highlight the side projects I work on
 
@@ -245,3 +245,321 @@ I ended up borrowing [Lee's method](https://github.com/leerob/leerob.io/blob/mas
 Big downsides of this include the fact that I can't import the same helper libraries I'm using in my Next pages because they are written in ES Modules, and the sitemap generator script is limited to CommonJS. 😭
 
 Here's my [finished script](https://github.com/jplhomer/site/blob/master/scripts/generate-sitemap.js) which creates both a sitemap and an RSS feed.
+
+## Building Glances
+
+A really cool part about the new site is a section I've named **Glances**:
+
+<video src="/blog/glances_desktop.mp4" autoplay="true" loading="lazy" muted loop />
+
+This is sort of like a **self-hosted Instagram**. I realized I share lots of different photos and videos to different social media platforms, but there's not really a single place where the "highlights" live.
+
+The answer is [Glances](/glances) 😍.
+
+Glances are driven by Markdown files in a `/glances` folder:
+
+```md
+---
+date: 2020-01-07
+image: 'https://some.photo.com/here.jpg'
+---
+
+My son Barrett was born! He is five days old in this photo.
+```
+
+These are pulled in once again using `getStaticProps` and parsed using `front-matter` and `marked`.
+
+One cool thing to note about glances is the **modal routing support**. You might be familiar with this if you've used Instagram:
+
+- **When clicking on a post**, it loads in a modal
+- **When visiting a post or refreshing the page**, it loads in a dedicated page.
+
+How the heck does that work? There's a [neat example](https://github.com/vercel/next.js/tree/canary/examples/with-route-as-modal) in the official repo. Here are the key parts I used in Glances:
+
+```jsx
+export default function Glances({ glances }) {
+  return glances.map((glance) => (
+    <Link key={glance.slug} href={`/glances?glanceSlug=${glance.slug}`} as={`/glances/${glance.slug}`} shallow={true}>
+      <a>
+        <GlancePreview glance={glance} />
+      </a>
+    </Link>
+  ));
+}
+```
+
+The key part is the variation between the `href` and `as` attributes. Under the hood, Next navigates to a query string like `?glanceSlug=some-glance-slug`. But in the URL bar, it looks as though you've completely changed routes to `/glances/some-glance/slug`.
+
+Then I can add a `pages/glances/[slug].js` which can pull in the slug, load the glance, and pre-render the static paths of all the glances ahead of time.
+
+::: warning Uh-oh!
+One issue I ran into here was the fact that as soon as I would change a route query param, I would lose my `glances` static props. This is because the entire component was being re-rendered, and no pre-defined props existed for that specific combination of page + query string.
+
+The key thing to remember is to **add `shallow={true}`** to the route to ensure the component isn't re-rendered.
+:::
+
+### Hearts
+
+Because I thought it would be fun, I wanted to add Instagram-style "likes" to my photos using a heart icon.
+
+First, I leveraged a [useLocalStorage](https://usehooks.com/useLocalStorage) hook to sync a given user's "like" status for a glance. I wrapped all of this functionality into my own hook, `useHearts`:
+
+```js
+import { useLocalStorage } from './use-localstorage';
+import { useMemo } from 'react';
+
+export function useHearts(slug, callback) {
+  const [glances, setGlances] = useLocalStorage('glance-likes', []);
+
+  const isLiked = useMemo(() => glances.includes(slug), [glances, slug]);
+
+  function toggleLike() {
+    if (isLiked) {
+      const newGlances = glances.filter((s) => s !== slug);
+
+      setGlances(newGlances);
+
+      if (callback) callback(-1);
+    } else {
+      let newGlances = [...glances];
+      newGlances.push(slug);
+
+      setGlances(newGlances);
+      if (callback) callback(1);
+    }
+  }
+
+  return [isLiked, toggleLike];
+}
+```
+
+Then I can pull in the user's like status:
+
+```js
+const [isLiked, toggleLiked] = useHearts(glance.slug);
+```
+
+That took care of tracking likes _locally_, but I also wanted to persist a total count of likes _remotely_. This is where [Firebase](https://firebase.google.com) came in handy, based on a [Jamstack Functions](https://jamstackfns.com/f/firebase) recipe by Lee Robinson.
+
+I leveraged Next's [API Routes](https://nextjs.org/docs/api-routes/introduction) to add a `pages/api/toggle-glance-like.js` endpoint:
+
+```js
+import db from '@/lib/db-admin';
+
+export default async (req, res) => {
+  if (!req.method === 'POST') {
+    return res.status(400).json({
+      error: 'Only supported request method is POST',
+    });
+  }
+
+  if (!req.body.slug) {
+    return res.status(400).json({
+      error: 'Missing "slug" body parameter',
+    });
+  }
+
+  const delta = req.body.decrement ? -1 : 1;
+
+  const ref = db.ref('glance-likes').child(req.body.slug);
+
+  const { snapshot } = await ref.transaction((currentLikes) => {
+    if (currentLikes === null || currentLikes === 0) {
+      return Math.max(delta, 0);
+    }
+
+    return currentLikes + delta;
+  });
+
+  return res.status(200).json({
+    total: snapshot.val(),
+  });
+};
+```
+
+Now, whenever the user clicks the heart (or double taps the photo), I `POST` to that endpoint to toggle the like within Firebase.
+
+Finally, I wanted to show the total number of likes for a given glance. I added a handy `useFirebase` hook which let me display realtime data from a given table:
+
+```js
+import { useState, useEffect } from 'react';
+import loadDb from '@/lib/db';
+
+export function useFirebase(collection, documentId) {
+  const [loading, setLoading] = useState(true);
+  const [value, setValue] = useState(null);
+
+  useEffect(() => {
+    const handleValue = (snapshot) => {
+      setValue(snapshot.val());
+      setLoading(false);
+    };
+
+    let db;
+
+    async function fetchValue() {
+      db = await loadDb();
+      db.ref(collection).child(documentId).on('value', handleValue);
+    }
+
+    fetchValue();
+
+    return () => {
+      if (db) {
+        db.ref(collection).child(documentId).off('value', handleValue);
+      }
+    };
+  });
+
+  return [value, loading, setValue];
+}
+```
+
+I'm using it like this:
+
+```js
+const [totalLikes, likesLoading, setTotalLikes] = useFirebase('glance-likes', glance.slug);
+```
+
+A couple things to note here:
+
+- **Asynchronous imports**. I got some nasty Firebase initialization errors when trying to do this otherwise. _This fix, once again, is thanks to Lee Robinson_.
+- **Optional setter**. I export a `setValue` optional third param, even though it only sets internal state. Why? Because it's nice to have **optimistic UI responses** to an action like clicking the heart on a glance and seeing the number increment immediately. The total will be eventually consistent with the remote UI, because the Firebase event will eventually callback with the real total.
+
+::: warning A note about private keys
+When adding my `FIREBASE_PRIVATE_KEY` to Vercel, I was getting an internal server error on the API endpoint along with a "Invalid PEM" message. This is because Vercel was **cutting off the first part of the private key** when I added the value through the Environment Variable UI. Adding the value directly from the CLI did the trick for me. I'm guessing this is a bug, and it should be fixed eventually.
+:::
+
+### Glance Navigation
+
+I really wanted to polish the UX for glances, so I implemented **keyboard arrow navigation** support on desktop using a hook called `useKeyboard`:
+
+```js
+import { useEffect } from 'react';
+
+export function useKeyboard(key, callback) {
+  useEffect(() => {
+    /**
+     * @param {KeyboardEvent} e
+     */
+    const handler = (e) => {
+      if (e.key === key) callback();
+
+      return;
+    };
+
+    window.addEventListener('keydown', handler);
+
+    return () => {
+      window.removeEventListener('keydown', handler);
+    };
+  });
+}
+```
+
+Then I can pass a callback to switch the active glance in the route query params:
+
+```js
+useKeyboard('ArrowRight', () => navigateGlance());
+useKeyboard('ArrowLeft', () => navigateGlance(-1));
+```
+
+Instagram's mobile interface is different than their desktop interface, and I wanted to reflect that here as well. On mobile, Instagram sends you to what _looks like_ a detail screen, but it's really a long list of chronological posts that you can view by simply scrolling up or down on the page.
+
+To implement this, I added a different query param `?glanceSlugScroll`, which allowed me to determine **which view to display** to the user based on a `useMedia` media query hook:
+
+```js
+const glanceLinkParam = useMedia(['(min-width: 768px)'], ['glanceSlug'], 'glanceSlugScroll');
+```
+
+When a mobile user clicks on a post, I set the `glanceScrollSlug` query param, and then scroll them to that position on the page (using a slight delay to allow for some loading):
+
+```jsx
+export default function Glances({ glances }) {
+  const isScrollActive = Boolean(router.query.glanceSlugScroll);
+
+  // ...
+
+  useEffect(() => {
+    if (router.query.glanceSlugScroll) {
+      const item = document.getElementById(router.query.glanceSlugScroll);
+      setTimeout(() => scroll(0, item.offsetTop), 100);
+    }
+  }, [router.query.glanceSlugScroll]);
+
+  return isScrollActive ? (
+    <ul>
+      {glances.map((glance) => (
+        <li id={glance.slug} key={glance.slug}>
+          <Glance glance={glance} />
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <div>
+      {glances.map((glance) => (
+        <Link
+          key={glance.slug}
+          href={`/glances?${glanceLinkParam}=${glance.slug}`}
+          as={`/glances/${glance.slug}`}
+          shallow={true}
+        >
+          <a>
+            <GlancePreview glance={glance} />
+          </a>
+        </Link>
+      ))}
+    </div>
+  );
+}
+```
+
+It isn't _perfect_, but it works nicely enough.
+
+## Dark Mode
+
+Gosh, Dark Mode sure is all the rage right now, isn't it?
+
+I _almost_ didn't ship this, because I assumed it would be a ton of work. But it wasn't, and I was pleasantly surprised!
+
+This is in large part thanks to a couple packages:
+
+- [tailwind-css-mode](https://github.com/ChanceArthur/tailwindcss-dark-mode) by Chance Arthur
+- [use-dark-mode](https://github.com/donavon/use-dark-mode) by donavon
+
+Once I added the Tailwind plugin, I wired up the the `useDarkMode` hook to the sun/moon icon in my header:
+
+```jsx
+function DarkModeToggle() {
+  const darkMode = useDarkMode();
+  const isClient = useIsClient();
+
+  const iconClasses = 'w-5 h-5 inline-block';
+
+  if (isClient) {
+    return (
+      <button onClick={darkMode.toggle} aria-label="Toggle light and dark mode">
+        {darkMode.value ? <Lightbulb className={iconClasses} /> : <Moon className={iconClasses} />}
+      </button>
+    );
+  }
+
+  return <span className="p-2 ml-2">...</span>;
+}
+```
+
+The last step was to apply dark-only styles to my site using the Tailwind helper classes e.g. `dark:bg-gray-800`. It was a lot fewer than I was expecting!
+
+The dark mode hook should use your system and browser preferences by default, which is _freaking amazing_. So you should see my "light mode" site during the day, and my "dark mode" site at night — unless you explicitly set the toggle, at which point it gets persisted in your localStorage.
+
+## Hosting
+
+The site is hosted on [Vercel](https://vercel.com). It's easy. It's fast.
+
+Every branch and commit I push to GitHub automatically gets a unique URL to preview in-browser.
+
+Plus, it's integrated tightly with the Next.js framework (built by Vercel) so my static-generated pages get hoisted to the CDN edge so they are hot and ready for your viewing pleasure 🔥.
+
+---
+
+That's it for me. Go ahead and follow me on Twitter at [@jplhomer](https://twitter.com/jplhomer), or [sign up for my newsletter](https://eepurl.com/c0jXpP) if you're interested in more.
