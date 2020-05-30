@@ -3,14 +3,14 @@ import { useFirebase } from '@/lib/use-firebase';
 import { useEffect, useState } from 'react';
 
 export default function ViewCounter({ id, className, shouldIncrement = false }) {
-  const [views, loading, setViews] = useFirebase('page-views', id);
+  const [views, loading] = useFirebase('page-views', id);
   const [incremented, setIncremented] = useState(false);
 
   useEffect(() => {
     const isLocalDev = window.location.href.includes('localhost');
 
     if (!loading && shouldIncrement && !incremented && !isLocalDev) {
-      setViews(views + 1);
+      fetch(`/api/increment-views?slug=${id}`);
       setIncremented(true);
     }
   }, [loading, views, incremented, shouldIncrement]);

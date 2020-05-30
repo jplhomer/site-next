@@ -33,6 +33,7 @@
     "@tailwindcss/ui": "^0.3.0",
     "autoprefixer": "^9.8.0",
     "firebase": "^7.14.5",
+    "firebase-admin": "^8.12.1",
     "front-matter": "^3.2.1",
     "globby": "^11.0.0",
     "heroicons": "github:refactoringui/heroicons",

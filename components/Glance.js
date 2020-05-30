@@ -10,8 +10,13 @@ import styles from '@/css/glances.module.css';
 export default function Glance({ glance, className }) {
   if (!glance) return <Loading />;
 
-  const [totalLikes, likesLoading, setTotalLikes] = useFirebase('glance-likes', glance.slug);
-  const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => setTotalLikes(totalLikes + delta));
+  const [totalLikes, likesLoading] = useFirebase('glance-likes', glance.slug);
+  const [isLiked, toggleLiked] = useHearts(glance.slug, (delta) => {
+    toggleGlanceLike({
+      slug: glance.slug,
+      decrement: delta === -1,
+    });
+  });
 
   return (
     <div className={mergeClasses('md:flex w-full', styles.glance, className)}>
@@ -41,6 +46,16 @@ export default function Glance({ glance, className }) {
       </div>
     </div>
   );
+}
+
+function toggleGlanceLike(data) {
+  fetch('/api/toggle-glance-like', {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 }
 
 function GlanceMedia({ glance, onDoubleClick }) {
