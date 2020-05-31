@@ -4,7 +4,7 @@ date: 2020-05-30
 description: I talk about building my new website with some fun new technologies.
 ---
 
-For the first time in a decade, I finally updated my personal website. This is something I've wanted to do for a long time, but I've never gotten around to it. I think a lot of folks can say the same thing about their personal site 😊.
+For the first time in a decade, I finally updated my personal website. This is something I've wanted to do for a long time, but I never gotten around to it until now.
 
 The site is built with [Next.js](https://nextjs.org) and [TailwindCSS](https://tailwindcss.com), and it's hosted on [Vercel](https://vercel.com).
 
@@ -22,9 +22,11 @@ I set some goals when beginning the redesign process:
 
 ## Importing WordPress posts into Next.js
 
-_Sigh_. I started my old WordPress site in 2008 when I was a freshman in college. I literally bought a cheap desktop computer from Walmart, set it up in my dorm room because it had high-speed internet, asked the IT department for a static IP address, and hosted a WordPress blog from my computer.
+_Sigh_.
 
-There's a lot of nostalgia there. I've written lots of posts over the past twelve years, and WordPress has served me well. I didn't want to give up the ghost quite yet and move to a completely-static site, so I made the decision to **preserve the site** and import the posts using the WordPress REST API.
+I started my old WordPress site in 2008 when I was a freshman in college. I literally bought a cheap desktop computer from Walmart, set it up in my dorm room because it had high-speed internet, asked the IT department for a static IP address, and hosted a WordPress blog from my computer.
+
+There's a lot of nostalgia there. I've written [lots of posts](/archives) over the past twelve years, and WordPress has served me well. I didn't want to give up the ghost quite yet and move to a completely-static site, so I made the decision to **preserve the site** and import the posts using the WordPress REST API.
 
 Luckily, Next's [static-site generation (SSG)](https://nextjs.org/docs/basic-features/data-fetching) APIs made this a breeze!
 
@@ -42,7 +44,7 @@ However, Next provides [catch-all routes](https://nextjs.org/docs/routing/dynami
 ['2018', '06', 'i-created-an-educational-site-called-full-stack-fundamentals'];
 ```
 
-In order to fetch the requested post, I leverage the `getStaticProps` method. WordPress allows you to query by `slug` alone without the leading date prefix. To do this, I grab the last item in the `params` array to send off to the JSON endpoint:
+In order to fetch the requested post, I leveraged the `getStaticProps` method. WordPress allows you to query by `slug` alone without the leading date prefix. To do this, I grabbed the last item in the `params` array to send off to the JSON endpoint:
 
 ```js
 // pages/[...slug].js
@@ -60,7 +62,7 @@ export async function getStaticProps({ params }) {
 }
 ```
 
-Additionally, I need to define a `getStaticPaths` method to tell Next how to pre-render the incoming static pages. In order to save some time during the build process, I choose to build only the **first ten** posts and then allow the remainder to be generated at runtime;
+Additionally, I needed to define a `getStaticPaths` method to tell Next how to pre-render the incoming static pages. In order to save some time during the build process, I chose to build only the **first ten** posts and then allowed the remainder to be generated at runtime;
 
 ```js
 // pages/[...slug].js
@@ -80,7 +82,7 @@ export async function getStaticPaths() {
 }
 ```
 
-Finally, I wanted to support **paginated archives** for my posts, since there are a bunch of them. To do that, I'm using a new dynamic route `pages/archives/[page].js`:
+Finally, I wanted to support **paginated archives** for my posts. To do that, I added a new dynamic route `pages/archives/[page].js`:
 
 ```js
 // pages/archives/[pages].js
@@ -114,7 +116,7 @@ This creates **three initial archive pages** and allows the rest to be generated
 
 Although I'm still importing my old WordPress posts via a JSON API, I want to write all future posts with [MDX](https://mdxjs.com/). It's like [Markdown](https://daringfireball.net/projects/markdown/syntax), only super-powered with React capabilities.
 
-In order to use this exactly how I wanted proved to be a bit of a challenge.
+Useing this exactly how I wanted proved to be a bit of a challenge.
 
 On one hand, you have the [official Next.js MDX plugin](https://github.com/vercel/next.js/tree/master/packages/next-mdx). This is great if you want to simply import partials of Markdown:
 
@@ -128,9 +130,9 @@ export default function Page() {
 
 The downside with this approach is that it's difficult to combine the power of `getStaticProps` with the MDX files, because the MDX compilation happens at the Webpack level.
 
-You can also enable top-level pages like `pages/content.mdx` if you want. The downside of this is that you're stuck with whatever global layout your app is providing, making it difficult to add custom layout features or pull in frontmatter metadata like `title`.
+You can also enable top-level pages like `pages/content.mdx` if you want. Unfortunately, you're stuck with whatever global layout your app is providing, making it difficult to add custom layout features or pull in frontmatter metadata like `title`.
 
-_Also: I had no idea MDX didn't support frontmatter out of the box. Kind of a bummer that I needed to pull in a separate package for this._
+_Also: I had no idea MDX didn't support frontmatter out of the box. Kind of a disappointed that I needed to pull in a separate package for this._
 
 Apparently [next-mdx-enhanced](https://github.com/hashicorp/next-mdx-enhanced/) is a nice alternative, but I just couldn't get past a weird compile error 😞.
 
@@ -250,13 +252,11 @@ Here's my [finished script](https://github.com/jplhomer/site/blob/master/scripts
 
 ## Building Glances
 
-A really cool part about the new site is a section I've named **Glances**:
+A really cool part about the new site is a section I've named [**Glances**](/glances) 😍:
 
-<video src="/blog/glances_desktop.mp4" autoplay="true" loading="lazy" muted controls loop />
+<video src="/blog/glances_desktop.mp4" autoplay="true" loading="lazy" muted controls playsinline loop />
 
 This is sort of like a **self-hosted Instagram**. I realized I share lots of different photos and videos to different social media platforms, but there's not really a single place where the "highlights" live.
-
-The answer is [Glances](/glances) 😍.
 
 Glances are driven by Markdown files in a `/glances` folder:
 
@@ -297,7 +297,7 @@ Then I can add a `pages/glances/[slug].js` which can pull in the slug, load the 
 ::: warning Uh-oh!
 One issue I ran into here was the fact that as soon as I would change a route query param, I would lose my `glances` static props. This is because the entire component was being re-rendered, and no pre-defined props existed for that specific combination of page + query string.
 
-The key thing to remember is to **add `shallow={true}`** to the route to ensure the component isn't re-rendered.
+The key thing to remember is to add `shallow={true}` to the route to ensure the component isn't re-rendered.
 :::
 
 ### Hearts
@@ -426,7 +426,7 @@ const [totalLikes, likesLoading, setTotalLikes] = useFirebase('glance-likes', gl
 A couple things to note here:
 
 - **Asynchronous imports**. I got some nasty Firebase initialization errors when trying to do this otherwise. _This fix, once again, is thanks to Lee Robinson_.
-- **Optional setter**. I export a `setValue` optional third param, even though it only sets internal state. Why? Because it's nice to have **optimistic UI responses** to an action like clicking the heart on a glance and seeing the number increment immediately. The total will be eventually consistent with the remote UI, because the Firebase event will eventually callback with the real total.
+- **Optional setter**. I export a `setValue` optional third param, even though it only sets internal state. Why? Because it's nice to have _optimistic UI responses_ to an action like clicking the heart on a glance and seeing the number increment immediately. The total will be eventually consistent with the remote UI, because the Firebase event will eventually callback with the real total.
 
 ::: warning A note about private keys
 When adding my `FIREBASE_PRIVATE_KEY` to Vercel, I was getting an internal server error on the API endpoint along with a "Invalid PEM" message. This is because Vercel was **cutting off the first part of the private key** when I added the value through the Environment Variable UI. Adding the value directly from the CLI did the trick for me. I'm guessing this is a bug, and it should be fixed eventually.
@@ -466,7 +466,9 @@ useKeyboard('ArrowRight', () => navigateGlance());
 useKeyboard('ArrowLeft', () => navigateGlance(-1));
 ```
 
-Instagram's mobile interface is different than their desktop interface, and I wanted to reflect that here as well. On mobile, Instagram sends you to what _looks like_ a detail screen, but it's really a long list of chronological posts that you can view by simply scrolling up or down on the page.
+Instagram's mobile interface is different than their desktop interface, and I wanted to reflect that here as well.
+
+On mobile, Instagram sends you to what _looks like_ a detail screen, but it's really a long list of chronological posts that you can view by simply scrolling up or down on the page.
 
 To implement this, I added a different query param `?glanceSlugScroll`, which allowed me to determine **which view to display** to the user based on a `useMedia` media query hook:
 
