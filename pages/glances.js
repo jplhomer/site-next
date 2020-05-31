@@ -47,7 +47,7 @@ export default function Glances({ glances }) {
   useEffect(() => {
     if (router.query.glanceSlugScroll) {
       const item = document.getElementById(router.query.glanceSlugScroll);
-      setTimeout(() => scroll(0, item.offsetTop), 100);
+      window.scroll(item.offsetTop);
     }
   }, [router.query.glanceSlugScroll]);
 
