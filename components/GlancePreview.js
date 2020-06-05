@@ -47,5 +47,5 @@ function TypeIcon({ glance }) {
     return <Play className={classList} />;
   }
 
-  return <Photograph className={classList} />;
+  return null;
 }
