@@ -61,11 +61,33 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
       </div>
       <div>
         <Project
+          title="Flareact"
+          image="/flareact.jpg"
+          status="Launched"
+          buttonText="View Docs"
+          buttonUrl="https://flareact.com"
+        >
+          Flareact is an edge-rendered React framework built for{' '}
+          <a className="underline font-medium whitespace-no-wrap" href="https://workers.cloudflare.com/">
+            Cloudflare Workers
+          </a>
+          . It is an open-source project inspired by{' '}
+          <a className="underline font-medium whitespace-no-wrap" href="https://nextjs.org">
+            Next.js
+          </a>
+          . Check out the docs below, or visit the{' '}
+          <a className="underline font-medium whitespace-no-wrap" href="https://github.com/flareact/flareact">
+            GitHub repo
+          </a>
+          .
+        </Project>
+        <Project
           title="Rafter"
           image="/rafter.jpg"
           status="In Progress"
           buttonText="View on GitHub"
           buttonUrl="https://github.com/rafter-platform/rafter"
+          flipped
         >
           <div className="mb-4">
             Rafter is an open-source serverless deployment platform built on top of Google Cloud. It's a side project I
@@ -96,7 +118,6 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           status="Launched"
           buttonText="Visit Barkpass"
           buttonUrl="https://www.barkpass.com"
-          flipped
         >
           <div className="mb-4">
             Launched in 2019, Barkpass is a pet licensing and dog park management software-as-a-service created by Bri
@@ -126,6 +147,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           status="Launched"
           buttonText="View Docs"
           buttonUrl="https://fresa.jplhomer.org"
+          flipped
         >
           Imagine if WordPress objects were as fluent and modern as Laravel Eloquent or Rails ActiveRecord models. Fresa
           makes that dream come true.
@@ -136,7 +158,6 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           status="On Hold"
           buttonText="Visit Website"
           buttonUrl="https://fullstackfundamentals.com"
-          flipped
         >
           In 2018, I started an educational website where I'd planned to record screencasts of all the cool things I
           learned. As it turns out, this was a lot more time-consuming than I thought, and the site never took off. But
@@ -148,6 +169,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           buttonText="Visit Website"
           buttonUrl="https://uselifeboat.com"
           image="/lifeboat.jpg"
+          flipped
         >
           Docker Compose is a command-line tool which can feel out of reach for beginners. I built a graphical user
           interface for it and called it Lifeboat.
