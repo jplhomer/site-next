@@ -94,7 +94,7 @@ function Page({ children }) {
         />
       </Head>
       <div
-        className="bg-white p-6 mx-auto"
+        className="bg-white p-6 mx-auto body"
         style={{
           width: '8.5in',
           height: '11in',
@@ -103,6 +103,18 @@ function Page({ children }) {
       >
         {children}
       </div>
+      <style jsx>{`
+        @media print {
+          .wrapper {
+            background: white !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+        }
+        @page {
+          margin: 10px;
+        }
+      `}</style>
     </div>
   );
 }
@@ -165,7 +177,7 @@ function Grid({ children, className }) {
   const [left, right] = Children.toArray(children);
 
   return (
-    <div className={mergeClasses('grid grid-cols-4 gap-2', className)}>
+    <div className={mergeClasses('grid grid-cols-4 gap-2 max-w-full', className)}>
       <div>{left}</div>
       <div className="col-span-3">{right}</div>
     </div>
