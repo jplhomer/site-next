@@ -19,9 +19,13 @@ export default function App({ Component, pageProps }) {
       </Head>
       <DefaultSeo {...SEO} />
 
-      <Layout>
+      {Component.noLayout === true ? (
         <Component {...pageProps} />
-      </Layout>
+      ) : (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      )}
     </>
   );
 }
