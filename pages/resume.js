@@ -16,7 +16,7 @@ export default function Resume() {
           premium advertising network products. Leverage serverless technologies to roll out real-time bidding services
           (Cloud Run, Node.js) and lead the development of a self-service advertising application (React, Next.js,
           Rails, GraphQL). Maintain and improve other Concert products for targeting, classifying and delivering
-          advertisements in an ethical, efficient and user-friendly way. Spearhead the roll-out of modern CI, CD and
+          advertisements in an ethical, efficient and user-friendly way. Support the migration to modern CI, CD and
           DevOps tools within the revenue engineering team.
         </Position>
         <Position title="Senior Engineer" dateRange="Jan 2018 - July 2019">
