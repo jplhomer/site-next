@@ -86,7 +86,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           image="/rafter.jpg"
           status="In Progress"
           buttonText="View on GitHub"
-          buttonUrl="https://github.com/rafter-platform/rafter"
+          buttonUrl="https://github.com/rafter-platform/rafter-alpha"
           flipped
         >
           <div className="mb-4">
