@@ -4,15 +4,17 @@ Now, I live and work in **Waukee, Iowa**, which is a suburb of Des Moines. It's 
 
 ## Professional Life
 
-I am a software engineer at **[Vox Media](https://voxmedia.com)**. I'm part of the **Concert Platforms** team, which supports the engineering products behind **[Concert](https://concert.io)**, a premium digital advertising marketplace.
+I'm a staff developer at **[Shopify](https://shopify.com)** on the Performance team. I just started, so I'm not sure what I'll be focusing on day-to-day, but I'll let you know when I do!
 
-At Vox Media, my official title is **Lead Engineer 2**. Fancy, right? It means "senior with a hint of principal." I serve as a technical lead on my team for our **ad placement library** written in JavaScript, which is responsible for taking ads delivered by our ad server and inserting them into the article a user is reading in a friendly, non-obtrusive way.
+Prior to this, I was a software engineer at **[Vox Media](https://voxmedia.com)**. I was part of the **Concert Platforms** team, which supports the engineering products behind **[Concert](https://concert.io)**, a premium digital advertising marketplace.
 
-I've also pioneered efforts to create a **real-time bidding server** which serves Concert ad creative to our 100+ Concert network publisher partners. It's a thrill to build a service that scales to **1+ billion monthly requests** and to see it contribute directly to the company's bottom line 🎉.
+I served as a technical lead on my team for our **ad placement library** written in JavaScript, which is responsible for taking ads delivered by our ad server and inserting them into the article a user is reading in a friendly, non-obtrusive way.
 
-More recently, I'm leading our team to build a **[self-service ad builder tool](https://www.axios.com/vox-media-google-launch-concert-local-ad-network-3405ad7a-6cf7-4d82-81d3-c028434415d2.html)** to support local advertisers and growth accounts at scale. We're building an amazing end-to-end user flow with React and GraphQL for the entire ad creation process, from uploading assets to entering payment details. I can't wait to share it with y'all.
+I also pioneered efforts to create a **real-time bidding server** which serves Concert ad creative to our 100+ Concert network publisher partners. It was a thrill to build a service that scales to **1+ billion monthly requests** and to see it contribute directly to the company's bottom line 🎉.
 
-I really enjoy working at Vox Media because I can **work from home** along with my other talented colleagues across the globe. Our culture is very nurturing, diverse and respectful. I love that I can go for a random afternoon jog and not have to make up the time later on, or mark a timesheet at the end of the day, or ask my boss for permission. I think a lot of workplaces _could_ be like this, but the leaders do not place the amount of **trust** Vox Media places in its employees to do good work without micromanagement.
+More recently, I led our team to build a **[self-service ad builder tool](https://admanager.concert.io)** to support local advertisers and growth accounts at scale. We built an amazing end-to-end user flow with React and GraphQL for the entire ad creation process, from uploading assets to entering payment details.
+
+I really enjoyed working at Vox Media because I could **work from home** along with my other talented colleagues across the globe. The culture is very nurturing, diverse and respectful. I love that I can go for a random afternoon jog and not have to make up the time later on, or mark a timesheet at the end of the day, or ask my boss for permission. I think a lot of workplaces _could_ be like this, but the leaders do not place the amount of **trust** Vox Media places in its employees to do good work without micromanagement.
 
 Prior to Vox Media, I was a **lead developer** at an [ad agency](https://itsahappymedium.com) where we created a bunch of cool WordPress websites for lots of small regional clients.
 
