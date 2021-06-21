@@ -1,7 +1,7 @@
 import Loading from './Loading';
-import HeartOutline from 'heroicons/outline/heart.svg';
-import HeartSolid from 'heroicons/solid/heart.svg';
-import Share from 'heroicons/outline/share.svg';
+import { HeartIcon as HeartOutline } from '@heroicons/react/outline';
+import { HeartIcon as HeartSolid } from '@heroicons/react/solid';
+import { ShareIcon as Share } from '@heroicons/react/outline';
 import { mergeClasses } from '@/lib/utils';
 import { useHearts } from '@/lib/use-hearts';
 import { useFirebase } from '@/lib/use-firebase';

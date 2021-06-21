@@ -1,12 +1,11 @@
 import { useFirebase } from '@/lib/use-firebase';
 import styles from '@/css/glances.module.css';
-import Heart from 'heroicons/solid/heart.svg';
-import Play from 'heroicons/solid/play.svg';
-import Photograph from 'heroicons/solid/photograph.svg';
+import { HeartIcon as Heart } from '@heroicons/react/solid';
+import { PlayIcon as Play } from '@heroicons/react/solid';
 
 export default function GlancePreview({ glance }) {
   return (
-    <div className="pt-full h-0 relative overflow-hidden">
+    <div className="aspect-w-1 aspect-h-1 relative overflow-hidden">
       <img
         src={glance.image}
         alt="Preview of Glance"

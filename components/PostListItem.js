@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ExternalLink from 'heroicons/outline/external-link.svg';
+import { ExternalLinkIcon } from '@heroicons/react/outline';
 import ViewCounter from './ViewCounter';
 
 export default function PostListItem({ post, href, as }) {
@@ -27,7 +27,7 @@ export default function PostListItem({ post, href, as }) {
 
 function PostLink({ post, href, as, children }) {
   const isExternal = Boolean(post.externalUrl);
-  const classes = 'p-2 block hover:bg-gray-200 dark-hover:bg-gray-800';
+  const classes = 'p-2 block hover:bg-gray-200 dark:hover:bg-gray-800';
 
   if (isExternal) {
     return (
@@ -56,7 +56,7 @@ function ExternalMark({ url }) {
   return (
     <span className="text-gray-600 dark:text-gray-300 whitespace-no-wrap block md:inline-block">
       <span className="text-xs md:ml-2">{new URL(url).host}</span>
-      <ExternalLink className="w-4 h-4 inline-block ml-1" />
+      <ExternalLinkIcon className="w-4 h-4 inline-block ml-1" />
     </span>
   );
 }

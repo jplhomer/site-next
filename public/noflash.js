@@ -1,7 +1,7 @@
 (function () {
   // Change these if you use something different in your hook.
   var storageKey = 'darkMode';
-  var classNameDark = 'dark-mode';
+  var classNameDark = 'dark';
   var classNameLight = 'light-mode';
 
   function setClassOnDocumentBody(darkMode) {

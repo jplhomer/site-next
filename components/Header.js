@@ -1,8 +1,7 @@
 import useDarkMode from 'use-dark-mode';
 import { useIsClient } from '@/lib/use-is-client';
 import Link from 'next/link';
-import Lightbulb from 'heroicons/outline/light-bulb.svg';
-import Moon from 'heroicons/outline/moon.svg';
+import { LightBulbIcon as Lightbulb, MoonIcon as Moon } from '@heroicons/react/outline';
 
 export default function Header() {
   return (
@@ -22,7 +21,7 @@ export default function Header() {
 }
 
 function DarkModeToggle() {
-  const darkMode = useDarkMode();
+  const darkMode = useDarkMode(false, { classNameDark: 'dark' });
   const isClient = useIsClient();
 
   const iconClasses = 'w-5 h-5 inline-block';
@@ -30,7 +29,7 @@ function DarkModeToggle() {
   if (isClient) {
     return (
       <button
-        className="inline-flex p-2 ml-2 md:ml-4 hover:bg-gray-200 dark-hover:bg-gray-700"
+        className="inline-flex p-2 ml-2 md:ml-4 hover:bg-gray-200 dark:hover:bg-gray-700"
         onClick={darkMode.toggle}
         aria-label="Toggle light and dark mode"
       >
@@ -45,7 +44,7 @@ function DarkModeToggle() {
 function NavItem({ href, children }) {
   return (
     <Link href={href}>
-      <a className="p-2 hover:bg-gray-200 dark-hover:bg-gray-700 ml-2 md:ml-4">{children}</a>
+      <a className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 ml-2 md:ml-4">{children}</a>
     </Link>
   );
 }

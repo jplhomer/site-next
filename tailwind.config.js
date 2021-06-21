@@ -1,5 +1,4 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const defaultConfig = require('tailwindcss/defaultConfig');
 
 module.exports = {
   purge: {
@@ -8,6 +7,8 @@ module.exports = {
       whitelist: ['dark-mode'],
     },
   },
+  mode: 'jit',
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -16,17 +17,5 @@ module.exports = {
     },
     darkSelector: '.dark-mode',
   },
-  variants: {
-    backgroundColor: [
-      ...defaultConfig.variants.backgroundColor,
-      'dark',
-      'dark-hover',
-      'dark-group-hover',
-      'dark-even',
-      'dark-odd',
-    ],
-    borderColor: [...defaultConfig.variants.borderColor, 'dark', 'dark-focus', 'dark-focus-within'],
-    textColor: [...defaultConfig.variants.textColor, 'dark', 'dark-hover', 'dark-active', 'dark-placeholder'],
-  },
-  plugins: [require('@tailwindcss/ui'), require('tailwindcss-dark-mode')()],
+  plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/typography')],
 };
