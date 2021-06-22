@@ -23,7 +23,7 @@ export default function ArchivePosts({ posts, total, page = 1 }) {
           Warning: Herein lies a collection of crusty old Internet web posts spanning all the way back from 2008 when I
           first launched my WordPress blog, self-hosted on a desktop computer running in my dorm room at Iowa State
           University. There are <b>{total} posts</b> in total. I like to think of it as a reflection of my self over the
-          past couple decades — I've certainly grown and changed as a person.
+          past couple decades — I&apos;ve certainly grown and changed as a person.
         </p>
       )}
 

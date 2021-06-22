@@ -38,7 +38,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
       />
       <div className="max-w-3xl mx-auto mb-6 p-4">
         <div className="mb-12">
-          <h1 className="text-4xl font-black mb-4">I'm Josh Larson. Nice to meet you!</h1>
+          <h1 className="text-4xl font-black mb-4">I&apos;m Josh Larson. Nice to meet you!</h1>
           <div className="prose text-lg font-medium leading-relaxed mb-4">
             <Intro />
           </div>
@@ -56,7 +56,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           <a className="text-sm text-gray-600 dark:text-gray-300 font-medium">Archives</a>
         </Link>{' '}
         <p className="mt-16 text-lg">
-          Here are some <strong>projects</strong> I've been building in my spare time:
+          Here are some <strong>projects</strong> I&apos;ve been building in my spare time:
         </p>
       </div>
       <div>
@@ -90,8 +90,8 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           flipped
         >
           <div className="mb-4">
-            Rafter is an open-source serverless deployment platform built on top of Google Cloud. It's a side project I
-            started building in 2020. I'm also writing about it on its own blog,{' '}
+            Rafter is an open-source serverless deployment platform built on top of Google Cloud. It&apos;s a
+            side project I started building in 2020. I&apos;m also writing about it on its own blog,{' '}
             <a className="underline font-medium whitespace-no-wrap" href="https://blog.rafter.app">
               Inside Rafter
             </a>
@@ -121,7 +121,7 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
         >
           <div className="mb-4">
             Launched in 2019, Barkpass is a pet licensing and dog park management software-as-a-service created by Bri
-            and me. We have one customer so far, but we're looking to expand soon. Be sure to check out the blog,{' '}
+            and me. We have one customer so far, but we&apos;re looking to expand soon. Be sure to check out the blog,{' '}
             <a className="font-medium underline" href="https://building.barkpass.com">
               Building Barkpass
             </a>
@@ -159,9 +159,9 @@ export default function Home({ rafterPosts, barkpassPosts, posts, glances }) {
           buttonText="Visit Website"
           buttonUrl="https://fullstackfundamentals.com"
         >
-          In 2018, I started an educational website where I'd planned to record screencasts of all the cool things I
-          learned. As it turns out, this was a lot more time-consuming than I thought, and the site never took off. But
-          it's still out there!
+          In 2018, I started an educational website where I&apos;d planned to record screencasts of all the cool things
+          I learned. As it turns out, this was a lot more time-consuming than I thought, and the site never took off.
+          But it&apos;s still out there!
         </Project>
         <Project
           title="Lifeboat"
