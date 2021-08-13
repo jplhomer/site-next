@@ -39,7 +39,7 @@
     "front-matter": "^3.2.1",
     "globby": "^11.0.0",
     "marked": "^1.1.0",
-    "next": "^11.0.0",
+    "next": "^11.1.0",
     "next-seo": "^4.5.0",
     "next-svgr": "^0.0.2",
     "postcss-nesting": "^7.0.1",
