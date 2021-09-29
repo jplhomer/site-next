@@ -4,7 +4,7 @@ Now, I live and work in **Waukee, Iowa**, which is a suburb of Des Moines. It's 
 
 ## Professional Life
 
-I'm a senior staff developer at **[Shopify](https://shopify.com)** on the Performance team. I'm building [Hydrogen](https://shopify.dev/hydrogen) which is a new React meta-framework powering custom storefronts for Shopify merchants.
+I'm a senior staff developer at **[Shopify](https://shopify.com)** on the Custom Storefronts team. I'm building [Hydrogen](https://shopify.dev/hydrogen) which is a new React meta-framework powering custom storefronts for Shopify merchants.
 
 Prior to this, I was a software engineer at **[Vox Media](https://voxmedia.com)**. I was part of the **Concert Platforms** team, which supports the engineering products behind **[Concert](https://concert.io)**, a premium digital advertising marketplace.
 
