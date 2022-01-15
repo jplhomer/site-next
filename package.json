@@ -38,7 +38,7 @@
     "firebase-admin": "^8.12.1",
     "front-matter": "^3.2.1",
     "globby": "^11.0.0",
-    "marked": "^1.1.0",
+    "marked": "^4.0.10",
     "next": "^11.0.0",
     "next-seo": "^4.5.0",
     "next-svgr": "^0.0.2",
